@@ -31,7 +31,7 @@ meeting.on("meeting-joined", () => {
 
 //  participant joined
 meeting.on("participant-joined", (participant) => {
-  if (participant.id !== 0) return;
+  if (participant.displayName !== "Basement Sports") return;
 
   let videoElement = createVideoElement(
     participant.id,
@@ -59,22 +59,31 @@ meeting.on("participant-left", (participant) => {
 function createVideoElement(pId, name) {
   let videoFrame = document.createElement("div");
   videoFrame.setAttribute("id", `f-${pId}`);
+  videoFrame.style.position = "absolute";
+  videoFrame.style.top = "0";
+  videoFrame.style.left = "0";
+  videoFrame.style.width = "100%";
+  videoFrame.style.height = "100%";
+  videoFrame.style.display = "flex";
+  videoFrame.style.justifyContent = "center";
+  videoFrame.style.alignItems = "center";
+  videoFrame.style.backgroundColor = "black"; // Optional background color
 
-  //create video
+  // Create video element
   let videoElement = document.createElement("video");
   videoElement.classList.add("video-frame");
   videoElement.setAttribute("id", `v-${pId}`);
   videoElement.setAttribute("playsinline", true);
-  videoElement.setAttribute("width", "300");
-  videoElement.muted = true;
-  videoFrame.appendChild(videoElement);
+  videoElement.setAttribute("muted", "true");
+  videoElement.style.width = "100%";
+  videoElement.style.height = "100%";
+  videoElement.style.objectFit = "cover"; // Ensures the video fills the screen without distortion
 
-  let displayName = document.createElement("div");
-  displayName.innerHTML = `Name : ${name}`;
-  videoFrame.appendChild(displayName);
+  videoFrame.appendChild(videoElement);
 
   return videoFrame;
 }
+
 
 // creating audio element
 function createAudioElement(pId) {
