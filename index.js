@@ -31,6 +31,8 @@ meeting.on("meeting-joined", () => {
 
 //  participant joined
 meeting.on("participant-joined", (participant) => {
+  if (participant.id !== 0) return;
+
   let videoElement = createVideoElement(
     participant.id,
     participant.displayName
