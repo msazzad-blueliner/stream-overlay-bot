@@ -149,58 +149,6 @@
     </div>
 
     <script src="https://sdk.videosdk.live/js-sdk/0.0.63/videosdk.js"></script>
-    <script type="module">
-        import findIcon from "./findIcon.js"
-
-        const socket = new WebSocket('ws://localhost:8080')
-
-        const placeholderData = {
-            status: "1st Half",
-            team: "Team 1",
-            against: "Team 2",
-            teamLogo: "Argentina.png",
-            againstLogo: "Australia.png",
-            teamScore: 0,
-            againstScore: 0,
-        }
-
-        function updateScorecard(data) {
-            document.getElementById('teamName').innerText = data.team.slice(0, 2).toUpperCase();
-            document.getElementById('againstName').innerText = data.against.slice(0, 2).toUpperCase();
-            document.getElementById('teamLogo').src = findIcon(data.teamFlag ?? data.teamLogo);
-            document.getElementById('againstLogo').src = findIcon(data.awayFlag ?? data.awaylogo);
-            document.getElementById('teamScore').innerText = data.teamScore;
-            document.getElementById('againstScore').innerText = data.againstScore;
-            document.getElementById('gameStatus').innerText = data.status;
-        }
-
-        setInterval(() => {
-            console.log('log');
-        }, 2000);
-
-
-        if (socket.readyState !== WebSocket.OPEN) {
-            console.log('not open');
-
-            updateScorecard(placeholderData)
-        }
-
-        socket.onmessage = (event) => {
-            try {
-                const data = JSON.parse(event.data);
-                updateScorecard(data);
-            } catch (error) {
-                console.error('Error parsing WebSocket message:', error);
-            }
-        };
-
-        // Close the WebSocket when the user leaves the page
-        window.addEventListener('beforeunload', () => {
-            if (socket.readyState === WebSocket.OPEN) {
-                socket.close(1000, 'Page unloaded'); // 1000 = Normal Closure
-            }
-        });
-    </script>
     <script src="index.js"></script>
 </body>
 

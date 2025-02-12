@@ -1,3 +1,5 @@
+import findIcon from "./findIcon.js";
+
 const url = window.location;
 const urlParams = new URLSearchParams(url.search);
 
@@ -10,6 +12,17 @@ const textDiv = document.getElementById("textDiv");
 
 window.VideoSDK.config(token);
 
+// For the scoreboard
+const placeholderData = {
+  status: "1st Half",
+  team: "Team 1",
+  against: "Team 2",
+  teamLogo: "Argentina.png",
+  againstLogo: "Australia.png",
+  teamScore: 0,
+  againstScore: 0,
+};
+
 const meeting = window.VideoSDK.initMeeting({
   meetingId: meetingId, // required
   name: "recorder", // required
@@ -20,16 +33,7 @@ const meeting = window.VideoSDK.initMeeting({
 
 meeting.join();
 
-meeting.on("meeting-joined", () => {
-  textDiv.style.display = "none";
-
-  meeting.pubSub.subscribe("CHANGE_BACKGROUND", (data) => {
-    let { message } = data;
-    document.body.style.backgroundColor = message;
-  });
-});
-
-//  participant joined
+//  Display the stream
 meeting.on("participant-joined", (participant) => {
   if (participant.displayName !== "Basement Sports") return;
 
@@ -40,22 +44,36 @@ meeting.on("participant-joined", (participant) => {
   let audioElement = createAudioElement(participant.id);
 
   participant.on("stream-enabled", (stream) => {
-    setTrack(stream, audioElement, participant, false);
+    setMediaTrack(stream, audioElement, participant, false);
   });
   videoContainer.appendChild(videoElement);
   videoContainer.appendChild(audioElement);
 });
 
-// participants left
+// Get published data from the streamer
+meeting.on("meeting-joined", () => {
+  textDiv.style.display = "none";
+
+  meeting.pubSub.subscribe("CHANGE_BACKGROUND", changeBackground);
+
+  meeting.pubSub.subscribe("UPDATE_SCOREBOARD", updateScoreboard);
+});
+
+// Cleanup after leaving the stream
 meeting.on("participant-left", (participant) => {
   let vElement = document.getElementById(`f-${participant.id}`);
   vElement.remove(vElement);
 
   let aElement = document.getElementById(`a-${participant.id}`);
   aElement.remove(aElement);
+
+  meeting.pubSub.unsubscribe("CHANGE_BACKGROUND", changeBackground);
+  meeting.pubSub.unsubscribe("UPDATE_SCOREBOARD", updateScoreboard);
+
+  updateScoreboard(placeholderData);
 });
 
-// creating video element
+// Helper functions
 function createVideoElement(pId, name) {
   let videoFrame = document.createElement("div");
   videoFrame.setAttribute("id", `f-${pId}`);
@@ -67,9 +85,8 @@ function createVideoElement(pId, name) {
   videoFrame.style.display = "flex";
   videoFrame.style.justifyContent = "center";
   videoFrame.style.alignItems = "center";
-  videoFrame.style.backgroundColor = "black"; // Optional background color
+  videoFrame.style.backgroundColor = "black"; // Optional
 
-  // Create video element
   let videoElement = document.createElement("video");
   videoElement.classList.add("video-frame");
   videoElement.setAttribute("id", `v-${pId}`);
@@ -84,8 +101,6 @@ function createVideoElement(pId, name) {
   return videoFrame;
 }
 
-
-// creating audio element
 function createAudioElement(pId) {
   let audioElement = document.createElement("audio");
   audioElement.setAttribute("autoPlay", "false");
@@ -96,8 +111,7 @@ function createAudioElement(pId) {
   return audioElement;
 }
 
-// setting media track
-function setTrack(stream, audioElement, participant, isLocal) {
+function setMediaTrack(stream, participant, isLocal) {
   if (stream.kind == "video") {
     isWebCamOn = true;
     const mediaStream = new MediaStream();
@@ -116,10 +130,42 @@ function setTrack(stream, audioElement, participant, isLocal) {
     } else {
       const mediaStream = new MediaStream();
       mediaStream.addTrack(stream.track);
-      audioElement.srcObject = mediaStream;
-      audioElement
+      let audioElem = document.getElementById(`a-${participant.id}`);
+      audioElem.srcObject = mediaStream;
+      audioElem
         .play()
         .catch((error) => console.error("audioElem.play() failed", error));
     }
   }
 }
+
+function changeBackground(data) {
+  let { message } = data;
+  document.body.style.backgroundColor = message;
+}
+
+function updateScoreboard(data) {
+  document.getElementById("teamName").innerText = data.team
+    .slice(0, 2)
+    .toUpperCase();
+  document.getElementById("againstName").innerText = data.against
+    .slice(0, 2)
+    .toUpperCase();
+  document.getElementById("teamLogo").src = findIcon(
+    data.teamFlag ?? data.teamLogo
+  );
+  document.getElementById("againstLogo").src = findIcon(
+    data.awayFlag ?? data.awaylogo
+  );
+  document.getElementById("teamScore").innerText = data.teamScore;
+  document.getElementById("againstScore").innerText = data.againstScore;
+  document.getElementById("gameStatus").innerText = data.status;
+}
+
+// TODO see if we need to clean up after the tab closes
+// Close the WebSocket when the user leaves the page
+/* window.addEventListener("beforeunload", () => {
+  if (socket.readyState === WebSocket.OPEN) {
+    socket.close(1000, "Page unloaded"); // 1000 = Normal Closure
+  }
+}); */
