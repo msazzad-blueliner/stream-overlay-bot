@@ -152,8 +152,8 @@ function changeBackground(data) {
 }
 
 function updateScoreboard(data) {
-  const { message, payload } = data;
-  /* document.getElementById("teamName").innerText = payload.team
+  const { payload } = data;
+  document.getElementById("teamName").innerText = payload.team
     .slice(0, 2)
     .toUpperCase();
   document.getElementById("againstName").innerText = payload.against
@@ -166,8 +166,8 @@ function updateScoreboard(data) {
     payload.awayFlag ?? payload.awaylogo
   );
   document.getElementById("teamScore").innerText = payload.teamScore;
-  document.getElementById("againstScore").innerText = payload.againstScore; */
-  document.getElementById("gameStatus").innerText = message; // payload.status;
+  document.getElementById("againstScore").innerText = payload.againstScore;
+  document.getElementById("gameStatus").innerText = payload.status;
 }
 
 const findIcon = (item) => {
