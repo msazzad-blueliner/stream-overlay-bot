@@ -153,6 +153,7 @@ function changeBackground(data) {
 
 function updateScoreboard(data) {
   const { payload } = data;
+  console.log(data.payload, data);
   document.getElementById("teamName").innerText = payload.team
     .slice(0, 2)
     .toUpperCase();
