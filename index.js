@@ -154,19 +154,20 @@ function changeBackground(data) {
 }
 
 function updateScoreboard(data) {
-  document.getElementById("teamName").innerText = data.team
+  const { payload } = data;
+  document.getElementById("teamName").innerText = payload.team
     .slice(0, 2)
     .toUpperCase();
-  document.getElementById("againstName").innerText = data.against
+  document.getElementById("againstName").innerText = payload.against
     .slice(0, 2)
     .toUpperCase();
   document.getElementById("teamLogo").src = findIcon(
-    data.teamFlag ?? data.teamLogo
+    payload.teamFlag ?? payload.teamLogo
   );
   document.getElementById("againstLogo").src = findIcon(
-    data.awayFlag ?? data.awaylogo
+    payload.awayFlag ?? payload.awaylogo
   );
-  document.getElementById("teamScore").innerText = data.teamScore;
-  document.getElementById("againstScore").innerText = data.againstScore;
-  document.getElementById("gameStatus").innerText = data.status;
+  document.getElementById("teamScore").innerText = payload.teamScore;
+  document.getElementById("againstScore").innerText = payload.againstScore;
+  document.getElementById("gameStatus").innerText = payload.status;
 }
