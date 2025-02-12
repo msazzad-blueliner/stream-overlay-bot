@@ -152,7 +152,8 @@ function changeBackground(data) {
 }
 
 function updateScoreboard(data) {
-  const { payload } = data;
+  const { message } = data;
+  const payload = JSON.parse(message);
   console.log("Logging payload: ",data.payload, data);
   document.getElementById("teamName").innerText = payload.team
     .slice(0, 2)
