@@ -13,8 +13,8 @@ window.VideoSDK.config(token);
 // For the scoreboard
 const placeholderData = {
   status: "1st Half",
-  team: "Team 1",
-  against: "Team 2",
+  team: "BRA",
+  against: "AUS",
   teamLogo: "brazilFlag",
   againstLogo: "australiaFlag",
   teamScore: 0,
