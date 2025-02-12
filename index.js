@@ -17,8 +17,8 @@ const placeholderData = {
   status: "1st Half",
   team: "Team 1",
   against: "Team 2",
-  teamLogo: "Argentina.png",
-  againstLogo: "Australia.png",
+  teamLogo: "brazilFlag",
+  againstLogo: "australiaFlag",
   teamScore: 0,
   againstScore: 0,
 };
@@ -59,6 +59,7 @@ meeting.on("meeting-joined", () => {
   meeting.pubSub.subscribe("UPDATE_SCOREBOARD", updateScoreboard);
 });
 
+// TODO see if we need to clean up after the tab closes
 // Cleanup after leaving the stream
 meeting.on("participant-left", (participant) => {
   let vElement = document.getElementById(`f-${participant.id}`);
@@ -70,7 +71,15 @@ meeting.on("participant-left", (participant) => {
   meeting.pubSub.unsubscribe("CHANGE_BACKGROUND", changeBackground);
   meeting.pubSub.unsubscribe("UPDATE_SCOREBOARD", updateScoreboard);
 
-  updateScoreboard(placeholderData);
+  // TODO: whether we should reset scoreboard or not
+  // updateScoreboard(placeholderData);
+
+  // Close the WebSocket when the user leaves the page
+  /* window.addEventListener("beforeunload", () => {
+  if (socket.readyState === WebSocket.OPEN) {
+    socket.close(1000, "Page unloaded"); // 1000 = Normal Closure
+  }
+}); */
 });
 
 // Helper functions
@@ -161,11 +170,3 @@ function updateScoreboard(data) {
   document.getElementById("againstScore").innerText = data.againstScore;
   document.getElementById("gameStatus").innerText = data.status;
 }
-
-// TODO see if we need to clean up after the tab closes
-// Close the WebSocket when the user leaves the page
-/* window.addEventListener("beforeunload", () => {
-  if (socket.readyState === WebSocket.OPEN) {
-    socket.close(1000, "Page unloaded"); // 1000 = Normal Closure
-  }
-}); */
