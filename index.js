@@ -42,7 +42,7 @@ meeting.on("participant-joined", (participant) => {
   let audioElement = createAudioElement(participant.id);
 
   participant.on("stream-enabled", (stream) => {
-    setMediaTrack(stream, audioElement, participant, false);
+    setMediaTrack(stream, participant, false);
   });
   videoContainer.appendChild(videoElement);
   videoContainer.appendChild(audioElement);
@@ -169,7 +169,6 @@ function updateScoreboard(data) {
   document.getElementById("againstScore").innerText = payload.againstScore; */
   document.getElementById("gameStatus").innerText = message; // payload.status;
 }
-
 
 const findIcon = (item) => {
   switch (item) {
