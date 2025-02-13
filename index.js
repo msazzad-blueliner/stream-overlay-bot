@@ -126,9 +126,9 @@ function setMediaTrack(stream, participant, isLocal) {
   }
 }
 
-function updateScoreboard({ message }) {
+function updateScore({ message }) {
   const payload = JSON.parse(message);
-  document.getElementById("teamName").innerText = payload.team
+  /* document.getElementById("teamName").innerText = payload.team
     .slice(0, 3)
     .toUpperCase();
   document.getElementById("againstName").innerText = payload.against
@@ -139,10 +139,10 @@ function updateScoreboard({ message }) {
   );
   document.getElementById("againstLogo").src = findIcon(
     payload.awayFlag ?? payload.awaylogo
-  );
+  ); */
   document.getElementById("teamScore").innerText = payload.teamScore;
   document.getElementById("againstScore").innerText = payload.againstScore;
-  document.getElementById("gameStatus").innerText = payload.status;
+  /* document.getElementById("gameStatus").innerText = payload.status; */
 }
 
 // pub sub
@@ -163,7 +163,7 @@ client.onopen = () => {
 client.onmessage = (message) => {
   try {
     const data = JSON.parse(message.data);
-    if (data.event === "UPDATE_SCOREBOARD") {
+    if (data.event === "UPDATE_SCORE") {
       updateScoreboard(data.payload);
     }
   } catch (error) {
