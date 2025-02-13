@@ -150,7 +150,9 @@ function updateGameStatus({ payload }) {
   document.getElementById("gameStatus").innerText = payload.status;
 }
 
-function updateTeams({ payload }) {
+function updateScoreboard(data) {
+  const { message } = data;
+  const payload = JSON.parse(message);
   document.getElementById("teamName").innerText = payload.team
     .slice(0, 2)
     .toUpperCase();
