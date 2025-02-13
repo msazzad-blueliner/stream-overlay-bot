@@ -966,6 +966,6 @@ const findIcon = (item) => {
     case "wolf_cat_yellow":
       return "./assets/teams/wolf_cats/wolf_cat_yellow.png";
     default:
-      return "./assets/countriesFlag/Brazil.png";
+      return "../assets/logoOwl.png";
   }
 };
