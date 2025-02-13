@@ -52,9 +52,7 @@ meeting.on("participant-joined", (participant) => {
 meeting.on("meeting-joined", () => {
   textDiv.style.display = "none";
 
-  meeting.pubSub.subscribe("UPDATE_TEAMS", updateTeams);
-  meeting.pubSub.subscribe("UPDATE_SCORE", updateScore);
-  meeting.pubSub.subscribe("UPDATE_GAME_STATUS", updateGameStatus);
+  meeting.pubSub.subscribe("UPDATE_SCOREBOARD", updateScoreboard);
 });
 
 // TODO see if we need to clean up after the tab closes
@@ -146,12 +144,7 @@ function setMediaTrack(stream, participant, isLocal) {
   }
 }
 
-function updateGameStatus({ payload }) {
-  document.getElementById("gameStatus").innerText = payload.status;
-}
-
-function updateScoreboard(data) {
-  const { message } = data;
+function updateScoreboard({ message }) {
   const payload = JSON.parse(message);
   document.getElementById("teamName").innerText = payload.team
     .slice(0, 3)
@@ -165,12 +158,12 @@ function updateScoreboard(data) {
   document.getElementById("againstLogo").src = findIcon(
     payload.awayFlag ?? payload.awaylogo
   );
-}
-
-function updateScore({ payload }) {
   document.getElementById("teamScore").innerText = payload.teamScore;
   document.getElementById("againstScore").innerText = payload.againstScore;
+  document.getElementById("gameStatus").innerText = payload.status;
 }
+
+function updateScore({ payload }) {}
 
 const findIcon = (item) => {
   switch (item) {
