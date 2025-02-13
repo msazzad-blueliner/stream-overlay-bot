@@ -163,8 +163,6 @@ function updateScoreboard({ message }) {
   document.getElementById("gameStatus").innerText = payload.status;
 }
 
-function updateScore({ payload }) {}
-
 const findIcon = (item) => {
   switch (item) {
     case "newZealandFlag":
