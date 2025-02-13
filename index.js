@@ -31,7 +31,7 @@ const meeting = window.VideoSDK.initMeeting({
 
 meeting.join();
 
-//  Display the stream
+//  Play the stream
 meeting.on("participant-joined", (participant) => {
   if (participant.displayName !== "Basement Sports") return;
 
@@ -48,14 +48,7 @@ meeting.on("participant-joined", (participant) => {
   videoContainer.appendChild(audioElement);
 });
 
-// Get published data from the streamer
-meeting.on("meeting-joined", () => {
-  textDiv.style.display = "none";
-
-  meeting.pubSub.subscribe("UPDATE_SCOREBOARD", updateScoreboard);
-});
-
-// TODO see if we need to clean up after the tab closes
+// TODO: whether we should reset scoreboard or not
 // Cleanup after leaving the stream
 meeting.on("participant-left", (participant) => {
   let vElement = document.getElementById(`f-${participant.id}`);
@@ -64,18 +57,7 @@ meeting.on("participant-left", (participant) => {
   let aElement = document.getElementById(`a-${participant.id}`);
   aElement.remove(aElement);
 
-  meeting.pubSub.unsubscribe("CHANGE_BACKGROUND", changeBackground);
-  meeting.pubSub.unsubscribe("UPDATE_SCOREBOARD", updateScoreboard);
-
-  // TODO: whether we should reset scoreboard or not
   // updateScoreboard(placeholderData);
-
-  // Close the WebSocket when the user leaves the page
-  /* window.addEventListener("beforeunload", () => {
-  if (socket.readyState === WebSocket.OPEN) {
-    socket.close(1000, "Page unloaded"); // 1000 = Normal Closure
-  }
-}); */
 });
 
 // Helper functions
@@ -162,6 +144,55 @@ function updateScoreboard({ message }) {
   document.getElementById("againstScore").innerText = payload.againstScore;
   document.getElementById("gameStatus").innerText = payload.status;
 }
+
+// pub sub
+// TODO: replace with production url
+client = new WebSocket("ws://localhost:3000/ws");
+
+// Subscribe to the UPDATE_SCOREBOARD event
+client.onopen = () => {
+  client.send(
+    JSON.stringify({
+      type: "subscribe",
+      events: ["UPDATE_SCOREBOARD"],
+    })
+  );
+};
+
+// Update the score board
+client.onmessage = (message) => {
+  try {
+    const data = JSON.parse(message.data);
+    if (data.event === "UPDATE_SCOREBOARD") {
+      updateScoreboard(data.payload);
+    }
+  } catch (error) {
+    console.error("Error parsing WebSocket message:", error);
+  }
+};
+
+client.onerror = (error) => console.error("WebSocket Error:", error);
+
+// TODO: additional cleanups
+// Close the WebSocket when the user leaves the page
+/* window.addEventListener("beforeunload", () => {
+  // Leave the meeting
+  if (meeting) {
+    meeting
+      .leave()
+      .then(() => {
+        console.log("Left the meeting successfully");
+      })
+      .catch((error) => {
+        console.error("Error leaving the meeting:", error);
+      });
+  }
+
+  // Close the WebSocket connection
+  if (client.readyState === WebSocket.OPEN) {
+    client.close(1000, "Page unloaded"); // 1000 = Normal Closure
+  }
+}); */
 
 const findIcon = (item) => {
   switch (item) {
