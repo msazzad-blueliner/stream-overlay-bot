@@ -154,10 +154,10 @@ function updateScoreboard(data) {
   const { message } = data;
   const payload = JSON.parse(message);
   document.getElementById("teamName").innerText = payload.team
-    .slice(0, 2)
+    .slice(0, 3)
     .toUpperCase();
   document.getElementById("againstName").innerText = payload.against
-    .slice(0, 2)
+    .slice(0, 3)
     .toUpperCase();
   document.getElementById("teamLogo").src = findIcon(
     payload.teamFlag ?? payload.teamLogo
