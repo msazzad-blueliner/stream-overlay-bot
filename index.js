@@ -8,11 +8,10 @@ const participantId = urlParams.get("participantId");
 const videoContainer = document.getElementById("videoContainer");
 const textDiv = document.getElementById("textDiv");
 
-const soccerBoard = document.getElementById("soccerBoard");
-const spinner = document.getElementById("spinner");
-
-/* soccerBoard.style.display = "none";
-spinner.style.display = "block"; */
+console.log(
+  document.getElementById("soccerBoard").style.display,
+  document.getElementById("spinner").style.display
+);
 
 window.VideoSDK.config(token);
 
