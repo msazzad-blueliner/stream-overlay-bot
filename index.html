@@ -22,23 +22,25 @@
 
                 <div class="divider"></div>
 
-                <div class="teams-container">
-                    <div class="team">
-                        <img id="teamLogo" src="./assets/Brazil.png" alt="Team" class="team-logo">
-                        <span id="teamName">BRA</span>
+                <div id="soccerBoard">
+                    <div class="teams-container">
+                        <div class="team">
+                            <img id="teamLogo" src="./assets/Brazil.png" alt="Team" class="team-logo">
+                            <span id="teamName">BRA</span>
+                        </div>
+                        <div class="score">
+                            <span id="teamScore">0</span>
+                            <span>-</span>
+                            <span id="againstScore">0</span>
+                        </div>
+                        <div class="team">
+                            <span id="againstName">AUS</span>
+                            <img id="againstLogo" src="./assets/Australia.png" alt="Against Team" class="team-logo">
+                        </div>
                     </div>
-                    <div class="score">
-                        <span id="teamScore">0</span>
-                        <span>-</span>
-                        <span id="againstScore">0</span>
-                    </div>
-                    <div class="team">
-                        <span id="againstName">AUS</span>
-                        <img id="againstLogo" src="./assets/Australia.png" alt="Against Team" class="team-logo">
-                    </div>
+                    <div class="half" id="gameStatus">1st Half</div>
                 </div>
-                <div class="half" id="gameStatus">1st Half</div>
-                <div class="loading">
+                <div id="'spinner" class="loading">
                     <div class="spinner"></div>
                 </div>
             </div>
