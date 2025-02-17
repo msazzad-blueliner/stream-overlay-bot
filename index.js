@@ -8,10 +8,8 @@ const participantId = urlParams.get("participantId");
 const videoContainer = document.getElementById("videoContainer");
 const textDiv = document.getElementById("textDiv");
 
-console.log(
-  document.getElementById("soccerBoard").style.display,
-  document.getElementById("spinner").style.display
-);
+const soccerBoard = document.getElementById("soccerBoard");
+const spinner = document.getElementById("spinner");
 
 window.VideoSDK.config(token);
 
@@ -167,8 +165,8 @@ function updateScoreboard({ message }) {
   document.getElementById("againstScore").innerText = payload.againstScore;
   document.getElementById("gameStatus").innerText = payload.status;
 
-  /* soccerBoard.style.display = "block";
-  spinner.style.display = "none"; */
+  soccerBoard.style.display = "block";
+  spinner.style.display = "none";
 }
 
 const findIcon = (item) => {
