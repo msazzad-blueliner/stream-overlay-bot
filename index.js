@@ -182,7 +182,7 @@ const socket = io(SOCKET_API_URL, {
 socket.on(`game-msg:${matchId}`, (payload) => {
   console.log(payload);
 
-  updateSoccerScore(payload);
+  updateScoreboard(payload);
 });
 
 const findIcon = (item) => {
