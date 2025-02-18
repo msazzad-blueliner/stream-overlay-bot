@@ -1,3 +1,5 @@
+import { io } from "https://cdn.socket.io/4.8.1/socket.io.esm.min.js";
+const SOCKET_API_URL = "https://bsports-socket-staging.herokuapp.com/";
 const url = window.location;
 const urlParams = new URLSearchParams(url.search);
 
@@ -168,6 +170,24 @@ function updateScoreboard({ message }) {
   soccerBoard.style.display = "block";
   spinner.style.display = "none";
 }
+
+const socket = io(SOCKET_API_URL, {
+  withCredentials: true,
+  extraHeaders: {
+    "Access-Control-Allow-Origin": "*",
+  },
+  transports: ["websocket", "polling"],
+});
+
+socket.on("connect", () => {
+  console.log(socket.id);
+});
+
+socket.on("UPDATE_SOCCER_SCORE", (payload) => {
+  console.log(payload);
+
+  // updateSoccerScore(payload);
+});
 
 const findIcon = (item) => {
   switch (item) {
