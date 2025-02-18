@@ -1,4 +1,4 @@
-//import { io } from "https://cdn.socket.io/4.8.1/socket.io.esm.min.js";
+import { io } from "https://cdn.socket.io/4.8.1/socket.io.esm.min.js";
 const SOCKET_API_URL = "https://bsports-socket-staging.herokuapp.com/";
 const url = window.location;
 const urlParams = new URLSearchParams(url.search);
@@ -184,7 +184,7 @@ socket.on("connect", () => {
 
 socket.on("UPDATE_SOCCER_SCORE", (payload) => {
   console.log(payload);
-  
+
   // updateSoccerScore(payload);
 });
 // Subscribe to the UPDATE_SCOREBOARD event
