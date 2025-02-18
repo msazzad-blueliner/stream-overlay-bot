@@ -142,3 +142,37 @@ body {
 .hidden {
   display: none;
 }
+
+.timer-container {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  z-index: 2000;
+}
+
+.timer-circle {
+  width: 80px;
+  height: 80px;
+  background-color: #ff0000;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+}
+
+.timer-text {
+  color: white;
+  font-size: 24px;
+  font-weight: bold;
+  font-family: Arial, sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+}
+
+.timer-text span {
+  min-width: 15px;
+  text-align: center;
+}

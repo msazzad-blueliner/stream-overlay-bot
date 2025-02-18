@@ -14,6 +14,9 @@ const textDiv = document.getElementById("textDiv");
 const soccerBoard = document.getElementById("soccerBoard");
 const spinner = document.getElementById("spinner");
 
+const minutesElement = document.getElementById("timer-minutes");
+const secondsElement = document.getElementById("timer-seconds");
+
 window.VideoSDK.config(token);
 
 // For the scoreboard
@@ -155,7 +158,18 @@ function disableSpinner() {
   spinner.style.display = "none";
 }
 
-function updateScoreboard({ gameType, payload }) {
+function updateTimer(currentTime) {
+  const minutes = Math.floor(currentTime / 60);
+  const seconds = Math.floor(currentTime % 60);
+  minutesElement.textContent = minutes.toString();
+  secondsElement.textContent = seconds.toString().padStart(2, "0");
+}
+
+function updateScoreboard({ currentTime, gameType, payload }) {
+  if (currentTime && typeof currentTime === "number") {
+    updateTimer(currentTime);
+  }
+
   if (
     typeof gameType !== "string" ||
     gameType.trim() === "" ||
@@ -173,11 +187,9 @@ function updateScoreboard({ gameType, payload }) {
       document.getElementById("againstName").innerText = payload?.against
         ?.slice(0, 3)
         ?.toUpperCase();
-      document.getElementById("teamLogo").src = findIcon(
-        payload?.teamFlag ?? payload?.teamLogo
-      );
+      document.getElementById("teamLogo").src = findIcon(payload?.teamLogo);
       document.getElementById("againstLogo").src = findIcon(
-        payload?.awayFlag ?? payload?.awaylogo
+        payload?.againstLogo
       );
       document.getElementById("teamScore").innerText = payload?.teamScore;
       document.getElementById("againstScore").innerText = payload?.againstScore;
