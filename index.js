@@ -151,7 +151,7 @@ function setMediaTrack(stream, participant, isLocal) {
 }
 
 function updateScoreboard(payload) {
-  /* document.getElementById("teamName").innerText = payload?.team
+  document.getElementById("teamName").innerText = payload?.team
     ?.slice(0, 3)
     ?.toUpperCase();
   document.getElementById("againstName").innerText = payload?.against
@@ -163,7 +163,7 @@ function updateScoreboard(payload) {
   document.getElementById("againstLogo").src = findIcon(
     payload?.awayFlag ?? payload?.awaylogo
   );
-  document.getElementById("teamScore").innerText = payload?.teamScore; */
+  document.getElementById("teamScore").innerText = payload?.teamScore;
   document.getElementById("againstScore").innerText = payload?.againstScore;
   document.getElementById("gameStatus").innerText = payload?.status;
 
