@@ -127,6 +127,7 @@ function createAudioElement(pId) {
 
 function setMediaTrack(stream, participant, isLocal) {
   if (stream.kind == "video") {
+    isWebCamOn = true;
     const mediaStream = new MediaStream();
     mediaStream.addTrack(stream.track);
     let videoElm = document.getElementById(`v-${participant.id}`);
@@ -139,6 +140,7 @@ function setMediaTrack(stream, participant, isLocal) {
   }
   if (stream.kind == "audio") {
     if (isLocal) {
+      isWebCamOn = true;
     } else {
       const mediaStream = new MediaStream();
       mediaStream.addTrack(stream.track);
