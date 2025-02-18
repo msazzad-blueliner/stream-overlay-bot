@@ -157,6 +157,8 @@ function disableSpinner() {
 }
 
 function updateTimer(currentTime) {
+  console.log(currentTime);
+
   const minutes = Math.floor(currentTime / 60);
   const seconds = Math.floor(currentTime % 60);
   minutesElement.textContent = minutes.toString();
