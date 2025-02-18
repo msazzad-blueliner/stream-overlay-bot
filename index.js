@@ -1,3 +1,4 @@
+//import { io } from "https://cdn.socket.io/4.8.1/socket.io.esm.min.js";
 const SOCKET_API_URL = "https://bsports-socket-staging.herokuapp.com/";
 const url = window.location;
 const urlParams = new URLSearchParams(url.search);
@@ -149,8 +150,7 @@ function setMediaTrack(stream, participant, isLocal) {
   }
 }
 
-function updateSoccerScore({ message }) {
-  const payload = JSON.parse(message);
+function updateSoccerScore(payload) {
   console.log("updating the score");
 
   document.getElementById("teamName").innerText = placeholderData.team
@@ -175,10 +175,18 @@ function updateSoccerScore({ message }) {
 
 // pub sub
 // TODO: replace with production url
-client = new WebSocket(SOCKET_API_URL);
+/* client = new WebSocket(SOCKET_API_URL); */
+const socket = io(SOCKET_API_URL);
 
+socket.on("connect", () => {
+  console.log(socket.id); // x8WIv7-mJelg7on_ALbx
+});
+
+socket.on("UPDATE_SOCCER_SCORE", (payload) => {
+  updateSoccerScore(payload);
+});
 // Subscribe to the UPDATE_SCOREBOARD event
-client.onopen = () => {
+/* client.onopen = () => {
   console.log("connected to the server");
 
   client.send(
@@ -187,21 +195,7 @@ client.onopen = () => {
       events: ["UPDATE_SOCCER_SCORE"],
     })
   );
-};
-
-// Update the score board
-client.onmessage = (message) => {
-  try {
-    const data = JSON.parse(message.data);
-    if (data.event === "UPDATE_SOCCER_SCORE") {
-      updateSoccerScore(data.payload);
-    }
-  } catch (error) {
-    console.error("Error parsing WebSocket message:", error);
-  }
-};
-
-client.onerror = (error) => console.error("WebSocket Error:", error);
+}; */
 
 // TODO: additional cleanups
 // Close the WebSocket when the user leaves the page
