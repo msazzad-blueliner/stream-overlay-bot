@@ -150,23 +150,22 @@ function setMediaTrack(stream, participant, isLocal) {
   }
 }
 
-function updateScoreboard({ message }) {
-  const payload = JSON.parse(message);
-  document.getElementById("teamName").innerText = payload.team
+function updateScoreboard(payload) {
+  document.getElementById("teamName").innerText = payload?.team
     .slice(0, 3)
     .toUpperCase();
-  document.getElementById("againstName").innerText = payload.against
+  document.getElementById("againstName").innerText = payload?.against
     .slice(0, 3)
     .toUpperCase();
   document.getElementById("teamLogo").src = findIcon(
-    payload.teamFlag ?? payload.teamLogo
+    payload?.teamFlag ?? payload?.teamLogo
   );
   document.getElementById("againstLogo").src = findIcon(
-    payload.awayFlag ?? payload.awaylogo
+    payload?.awayFlag ?? payload?.awaylogo
   );
-  document.getElementById("teamScore").innerText = payload.teamScore;
-  document.getElementById("againstScore").innerText = payload.againstScore;
-  document.getElementById("gameStatus").innerText = payload.status;
+  document.getElementById("teamScore").innerText = payload?.teamScore;
+  document.getElementById("againstScore").innerText = payload?.againstScore;
+  document.getElementById("gameStatus").innerText = payload?.status;
 
   soccerBoard.style.display = "block";
   spinner.style.display = "none";
@@ -183,7 +182,7 @@ const socket = io(SOCKET_API_URL, {
 socket.on(`game-msg:${matchId}`, (payload) => {
   console.log(payload);
 
-  //updateSoccerScore(payload);
+  updateSoccerScore(payload);
 });
 
 const findIcon = (item) => {
