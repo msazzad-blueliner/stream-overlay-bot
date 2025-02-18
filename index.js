@@ -1,3 +1,4 @@
+const SOCKET_API_URL = "https://bsports-socket-staging.herokuapp.com/";
 const url = window.location;
 const urlParams = new URLSearchParams(url.search);
 
@@ -55,7 +56,7 @@ meeting.on("participant-joined", (participant) => {
 meeting.on("meeting-joined", () => {
   textDiv.style.display = "none";
 
-  meeting.pubSub.subscribe("UPDATE_SCOREBOARD", updateScoreboard);
+  /* meeting.pubSub.subscribe("UPDATE_SCOREBOARD", updateScoreboard); */
 });
 
 // TODO see if we need to clean up after the tab closes
@@ -67,8 +68,9 @@ meeting.on("participant-left", (participant) => {
   let aElement = document.getElementById(`a-${participant.id}`);
   aElement.remove(aElement);
 
-  meeting.pubSub.unsubscribe("CHANGE_BACKGROUND", changeBackground);
-  meeting.pubSub.unsubscribe("UPDATE_SCOREBOARD", updateScoreboard);
+  // TODO: unsubscribe from events
+  /* meeting.pubSub.unsubscribe("CHANGE_BACKGROUND", changeBackground);
+  meeting.pubSub.unsubscribe("UPDATE_SCOREBOARD", updateScoreboard); */
 
   // TODO: whether we should reset scoreboard or not
   // updateScoreboard(placeholderData);
@@ -147,27 +149,76 @@ function setMediaTrack(stream, participant, isLocal) {
   }
 }
 
-function updateScoreboard({ message }) {
+function updateSoccerScore({ message }) {
   const payload = JSON.parse(message);
-  document.getElementById("teamName").innerText = payload.team
+  document.getElementById("teamName").innerText = placeholderData.team
     .slice(0, 3)
     .toUpperCase();
-  document.getElementById("againstName").innerText = payload.against
+  document.getElementById("againstName").innerText = placeholderData.against
     .slice(0, 3)
     .toUpperCase();
   document.getElementById("teamLogo").src = findIcon(
-    payload.teamFlag ?? payload.teamLogo
+    placeholderData.teamFlag ?? placeholderData.teamLogo
   );
   document.getElementById("againstLogo").src = findIcon(
-    payload.awayFlag ?? payload.awaylogo
+    placeholderData.awayFlag ?? placeholderData.awaylogo
   );
   document.getElementById("teamScore").innerText = payload.teamScore;
   document.getElementById("againstScore").innerText = payload.againstScore;
-  document.getElementById("gameStatus").innerText = payload.status;
+  document.getElementById("gameStatus").innerText = placeholderData.status;
 
   soccerBoard.style.display = "block";
   spinner.style.display = "none";
 }
+
+// pub sub
+// TODO: replace with production url
+client = new WebSocket(SOCKET_API_URL);
+
+// Subscribe to the UPDATE_SCOREBOARD event
+client.onopen = () => {
+  client.send(
+    JSON.stringify({
+      type: "subscribe",
+      events: ["UPDATE_SOCCER_SCORE"],
+    })
+  );
+};
+
+// Update the score board
+client.onmessage = (message) => {
+  try {
+    const data = JSON.parse(message.data);
+    if (data.event === "UPDATE_SOCCER_SCORE") {
+      updateSoccerScore(data.payload);
+    }
+  } catch (error) {
+    console.error("Error parsing WebSocket message:", error);
+  }
+};
+
+client.onerror = (error) => console.error("WebSocket Error:", error);
+
+// TODO: additional cleanups
+// Close the WebSocket when the user leaves the page
+/* window.addEventListener("beforeunload", () => {
+  // Leave the meeting
+  if (meeting) {
+    meeting
+      .leave()
+      .then(() => {
+        console.log("Left the meeting successfully");
+      })
+      .catch((error) => {
+        console.error("Error leaving the meeting:", error);
+      });
+  }
+
+  // Close the WebSocket connection
+  if (client.readyState === WebSocket.OPEN) {
+    client.close(1000, "Page unloaded"); // 1000 = Normal Closure
+  }
+}); */
 
 const findIcon = (item) => {
   switch (item) {
