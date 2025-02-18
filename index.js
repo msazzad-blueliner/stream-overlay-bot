@@ -157,30 +157,37 @@ function disableSpinner() {
 
 function updateScoreboard({ gameType, payload }) {
   if (
-    typeof gameType === "soccer" &&
-    gameType.trim() !== "" &&
-    typeof payload === "object" &&
-    payload !== null &&
-    Object.keys(payload).length > 0
-  ) {
-    document.getElementById("teamName").innerText = payload?.team
-      ?.slice(0, 3)
-      ?.toUpperCase();
-    document.getElementById("againstName").innerText = payload?.against
-      ?.slice(0, 3)
-      ?.toUpperCase();
-    document.getElementById("teamLogo").src = findIcon(
-      payload?.teamFlag ?? payload?.teamLogo
-    );
-    document.getElementById("againstLogo").src = findIcon(
-      payload?.awayFlag ?? payload?.awaylogo
-    );
-    document.getElementById("teamScore").innerText = payload?.teamScore;
-    document.getElementById("againstScore").innerText = payload?.againstScore;
-    document.getElementById("gameStatus").innerText = payload?.status;
+    typeof gameType !== "string" ||
+    gameType.trim() === "" ||
+    typeof payload !== "object" ||
+    payload === null ||
+    Object.keys(payload)?.length === 0
+  )
+    return;
 
-    disableSpinner();
+  switch (gameType) {
+    case "soccer":
+      document.getElementById("teamName").innerText = payload?.team
+        ?.slice(0, 3)
+        ?.toUpperCase();
+      document.getElementById("againstName").innerText = payload?.against
+        ?.slice(0, 3)
+        ?.toUpperCase();
+      document.getElementById("teamLogo").src = findIcon(
+        payload?.teamFlag ?? payload?.teamLogo
+      );
+      document.getElementById("againstLogo").src = findIcon(
+        payload?.awayFlag ?? payload?.awaylogo
+      );
+      document.getElementById("teamScore").innerText = payload?.teamScore;
+      document.getElementById("againstScore").innerText = payload?.againstScore;
+      document.getElementById("gameStatus").innerText = payload?.status;
+      break;
+
+    default:
+      break;
   }
+  disableSpinner();
 }
 
 const socket = io(SOCKET_API_URL, {
