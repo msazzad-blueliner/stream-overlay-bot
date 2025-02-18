@@ -151,6 +151,8 @@ function setMediaTrack(stream, participant, isLocal) {
 
 function updateSoccerScore({ message }) {
   const payload = JSON.parse(message);
+  console.log("updating the score");
+
   document.getElementById("teamName").innerText = placeholderData.team
     .slice(0, 3)
     .toUpperCase();
@@ -177,6 +179,8 @@ client = new WebSocket(SOCKET_API_URL);
 
 // Subscribe to the UPDATE_SCOREBOARD event
 client.onopen = () => {
+  console.log("connected to the server");
+
   client.send(
     JSON.stringify({
       type: "subscribe",
