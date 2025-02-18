@@ -176,7 +176,13 @@ function updateSoccerScore(payload) {
 // pub sub
 // TODO: replace with production url
 /* client = new WebSocket(SOCKET_API_URL); */
-const socket = io(SOCKET_API_URL);
+const socket = io(SOCKET_API_URL, {
+  withCredentials: true,
+  extraHeaders: {
+    "Access-Control-Allow-Origin": "*",
+  },
+  transports: ["websocket", "polling"],
+});
 
 socket.on("connect", () => {
   console.log(socket.id); // x8WIv7-mJelg7on_ALbx
