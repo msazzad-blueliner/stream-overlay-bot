@@ -4,6 +4,7 @@ const url = window.location;
 const urlParams = new URLSearchParams(url.search);
 
 const meetingId = urlParams.get("meetingId");
+const matchId = urlParams.get("matchId");
 const token = urlParams.get("token");
 const participantId = urlParams.get("participantId");
 
@@ -57,7 +58,7 @@ meeting.on("participant-joined", (participant) => {
 meeting.on("meeting-joined", () => {
   textDiv.style.display = "none";
 
-  meeting.pubSub.subscribe("UPDATE_SCOREBOARD", updateScoreboard);
+  /* meeting.pubSub.subscribe("UPDATE_SCOREBOARD", updateScoreboard); */
 });
 
 // TODO see if we need to clean up after the tab closes
@@ -69,8 +70,8 @@ meeting.on("participant-left", (participant) => {
   let aElement = document.getElementById(`a-${participant.id}`);
   aElement.remove(aElement);
 
-  meeting.pubSub.unsubscribe("CHANGE_BACKGROUND", changeBackground);
-  meeting.pubSub.unsubscribe("UPDATE_SCOREBOARD", updateScoreboard);
+  /* meeting.pubSub.unsubscribe("CHANGE_BACKGROUND", changeBackground);
+  meeting.pubSub.unsubscribe("UPDATE_SCOREBOARD", updateScoreboard); */
 
   // TODO: whether we should reset scoreboard or not
   // updateScoreboard(placeholderData);
@@ -179,20 +180,10 @@ const socket = io(SOCKET_API_URL, {
   transports: ["websocket", "polling"],
 });
 
-socket.on("connect", () => {
-  console.log(socket.id);
-});
-
-socket.on("UPDATE_SOCCER_SCORE", (payload) => {
+socket.on(`game-msg:${matchId}`, (payload) => {
   console.log(payload);
 
-  // updateSoccerScore(payload);
-});
-
-socket.on("game-msg", (payload) => {
-  console.log(payload);
-
-  // updateSoccerScore(payload);
+  //updateSoccerScore(payload);
 });
 
 const findIcon = (item) => {
