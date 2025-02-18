@@ -189,6 +189,12 @@ socket.on("UPDATE_SOCCER_SCORE", (payload) => {
   // updateSoccerScore(payload);
 });
 
+socket.on("game-msg", (payload) => {
+  console.log(payload);
+
+  // updateSoccerScore(payload);
+});
+
 const findIcon = (item) => {
   switch (item) {
     case "newZealandFlag":
