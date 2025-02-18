@@ -125,6 +125,8 @@ function createAudioElement(pId) {
   return audioElement;
 }
 
+// TODO: remove comment
+
 function setMediaTrack(stream, participant, isLocal) {
   if (stream.kind == "video") {
     isWebCamOn = true;
