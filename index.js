@@ -150,25 +150,37 @@ function setMediaTrack(stream, participant, isLocal) {
   }
 }
 
-function updateScoreboard(payload) {
-  document.getElementById("teamName").innerText = payload?.team
-    ?.slice(0, 3)
-    ?.toUpperCase();
-  document.getElementById("againstName").innerText = payload?.against
-    ?.slice(0, 3)
-    ?.toUpperCase();
-  document.getElementById("teamLogo").src = findIcon(
-    payload?.teamFlag ?? payload?.teamLogo
-  );
-  document.getElementById("againstLogo").src = findIcon(
-    payload?.awayFlag ?? payload?.awaylogo
-  );
-  document.getElementById("teamScore").innerText = payload?.teamScore;
-  document.getElementById("againstScore").innerText = payload?.againstScore;
-  document.getElementById("gameStatus").innerText = payload?.status;
-
+function disableSpinner() {
   soccerBoard.style.display = "block";
   spinner.style.display = "none";
+}
+
+function updateScoreboard({ gameType, payload }) {
+  if (
+    typeof gameType === "soccer" &&
+    gameType.trim() !== "" &&
+    typeof payload === "object" &&
+    payload !== null &&
+    Object.keys(payload).length > 0
+  ) {
+    document.getElementById("teamName").innerText = payload?.team
+      ?.slice(0, 3)
+      ?.toUpperCase();
+    document.getElementById("againstName").innerText = payload?.against
+      ?.slice(0, 3)
+      ?.toUpperCase();
+    document.getElementById("teamLogo").src = findIcon(
+      payload?.teamFlag ?? payload?.teamLogo
+    );
+    document.getElementById("againstLogo").src = findIcon(
+      payload?.awayFlag ?? payload?.awaylogo
+    );
+    document.getElementById("teamScore").innerText = payload?.teamScore;
+    document.getElementById("againstScore").innerText = payload?.againstScore;
+    document.getElementById("gameStatus").innerText = payload?.status;
+
+    disableSpinner();
+  }
 }
 
 const socket = io(SOCKET_API_URL, {
