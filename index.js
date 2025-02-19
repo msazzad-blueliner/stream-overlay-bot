@@ -19,17 +19,6 @@ const secondsElement = document.getElementById("timer-seconds");
 
 window.VideoSDK.config(token);
 
-// For the scoreboard
-const placeholderData = {
-  status: "1st Half",
-  team: "BRA",
-  against: "AUS",
-  teamLogo: "brazilFlag",
-  againstLogo: "australiaFlag",
-  teamScore: 0,
-  againstScore: 0,
-};
-
 const meeting = window.VideoSDK.initMeeting({
   meetingId: meetingId, // required
   name: "recorder", // required
@@ -57,34 +46,22 @@ meeting.on("participant-joined", (participant) => {
   videoContainer.appendChild(audioElement);
 });
 
-// Get published data from the streamer
+// Hide fallback message when participants join the stream
 meeting.on("meeting-joined", () => {
   textDiv.style.display = "none";
-
-  /* meeting.pubSub.subscribe("UPDATE_SCOREBOARD", updateScoreboard); */
 });
 
-// TODO see if we need to clean up after the tab closes
+// TODO unsubscribe when the participant leaves
 // Cleanup after leaving the stream
 meeting.on("participant-left", (participant) => {
   let vElement = document.getElementById(`f-${participant.id}`);
-  vElement.remove(vElement);
+  vElement.remove();
 
   let aElement = document.getElementById(`a-${participant.id}`);
-  aElement.remove(aElement);
+  aElement.remove();
 
   /* meeting.pubSub.unsubscribe("CHANGE_BACKGROUND", changeBackground);
   meeting.pubSub.unsubscribe("UPDATE_SCOREBOARD", updateScoreboard); */
-
-  // TODO: whether we should reset scoreboard or not
-  // updateScoreboard(placeholderData);
-
-  // Close the WebSocket when the user leaves the page
-  /* window.addEventListener("beforeunload", () => {
-  if (socket.readyState === WebSocket.OPEN) {
-    socket.close(1000, "Page unloaded"); // 1000 = Normal Closure
-  }
-}); */
 });
 
 // Helper functions
@@ -117,7 +94,7 @@ function createVideoElement(pId, name) {
 
 function createAudioElement(pId) {
   let audioElement = document.createElement("audio");
-  audioElement.setAttribute("autoPlay", "false");
+  audioElement.setAttribute("autoplay", "false");
   audioElement.setAttribute("playsInline", "true");
   audioElement.setAttribute("controls", "false");
   audioElement.setAttribute("id", `a-${pId}`);
@@ -127,7 +104,6 @@ function createAudioElement(pId) {
 
 function setMediaTrack(stream, participant, isLocal) {
   if (stream.kind == "video") {
-    isWebCamOn = true;
     const mediaStream = new MediaStream();
     mediaStream.addTrack(stream.track);
     let videoElm = document.getElementById(`v-${participant.id}`);
@@ -139,9 +115,7 @@ function setMediaTrack(stream, participant, isLocal) {
       );
   }
   if (stream.kind == "audio") {
-    if (isLocal) {
-      isMicOn = true;
-    } else {
+    if (!isLocal) {
       const mediaStream = new MediaStream();
       mediaStream.addTrack(stream.track);
       let audioElem = document.getElementById(`a-${participant.id}`);
@@ -166,7 +140,7 @@ function updateTimer(currentTime) {
 }
 
 function updateScoreboard({ currentTime, gameType, payload }) {
-  if (currentTime && typeof currentTime === "number") {
+  if (typeof currentTime === "number") {
     updateTimer(currentTime);
   }
 
@@ -1019,6 +993,6 @@ const findIcon = (item) => {
     case "wolf_cat_yellow":
       return "./assets/teams/wolf_cats/wolf_cat_yellow.png";
     default:
-      return "../assets/logoOwl.png";
+      return "./assets/logoOwl.png";
   }
 };
