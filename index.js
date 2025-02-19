@@ -153,26 +153,20 @@ function updateScoreboard({ currentTime, gameType, payload }) {
   )
     return;
 
-  switch (gameType) {
-    case "soccer":
-      document.getElementById("teamName").innerText = payload?.team
-        ?.slice(0, 3)
-        ?.toUpperCase();
-      document.getElementById("againstName").innerText = payload?.against
-        ?.slice(0, 3)
-        ?.toUpperCase();
-      document.getElementById("teamLogo").src = findIcon(payload?.teamLogo);
-      document.getElementById("againstLogo").src = findIcon(
-        payload?.againstLogo
-      );
-      document.getElementById("teamScore").innerText = payload?.teamScore;
-      document.getElementById("againstScore").innerText = payload?.againstScore;
-      document.getElementById("gameStatus").innerText = payload?.status;
-      break;
-
-    default:
-      break;
+  if (gameType === "soccer" || gameType === "hockey") {
+    document.getElementById("teamName").innerText = payload?.team
+      ?.slice(0, 3)
+      ?.toUpperCase();
+    document.getElementById("againstName").innerText = payload?.against
+      ?.slice(0, 3)
+      ?.toUpperCase();
+    document.getElementById("teamLogo").src = findIcon(payload?.teamLogo);
+    document.getElementById("againstLogo").src = findIcon(payload?.againstLogo);
+    document.getElementById("teamScore").innerText = payload?.teamScore;
+    document.getElementById("againstScore").innerText = payload?.againstScore;
+    document.getElementById("gameStatus").innerText = payload?.status;
   }
+
   disableSpinner();
 }
 
