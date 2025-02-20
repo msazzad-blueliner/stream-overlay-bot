@@ -137,8 +137,7 @@ function updateTimer(currentTime) {
   secondsElement.textContent = seconds.toString().padStart(2, "0");
 }
 
-function updateScoreboard(data) {
-  const { currentTime, gameType } = data;
+function updateScoreboard({ currentTime, gameType, payload }) {
   if (typeof currentTime === "number" && gameType !== "baseball") {
     // baseball doesn't have timer
     updateTimer(currentTime);
@@ -154,7 +153,6 @@ function updateScoreboard(data) {
     return;
 
   if (gameType === "soccer" || gameType === "hockey") {
-    const { payload } = data;
     console.log("updating soccer data", payload);
 
     document.getElementById("teamName").innerText = payload?.team
@@ -189,7 +187,7 @@ function updateScoreboard(data) {
       baseLoading,
       balls,
       strikes,
-    } = data.payload;
+    } = payload;
 
     console.log("updating soccer data", payload);
 
