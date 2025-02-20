@@ -139,7 +139,8 @@ function updateTimer(currentTime) {
   secondsElement.textContent = seconds.toString().padStart(2, "0");
 }
 
-function updateScoreboard({ currentTime, gameType, payload }) {
+function updateScoreboard(data) {
+  const { currentTime, gameType } = data;
   if (typeof currentTime === "number") {
     updateTimer(currentTime);
   }
@@ -154,6 +155,7 @@ function updateScoreboard({ currentTime, gameType, payload }) {
     return;
 
   if (gameType === "soccer" || gameType === "hockey") {
+    const { payload } = data;
     document.getElementById("teamName").innerText = payload?.team
       ?.slice(0, 3)
       ?.toUpperCase();
@@ -165,6 +167,65 @@ function updateScoreboard({ currentTime, gameType, payload }) {
     document.getElementById("teamScore").innerText = payload?.teamScore;
     document.getElementById("againstScore").innerText = payload?.againstScore;
     document.getElementById("gameStatus").innerText = payload?.status;
+  }
+
+  if (gameType === "baseball") {
+    const {
+      awayteamlogo,
+      hometeamlogo,
+      awayTeam,
+      homeTeam,
+      extraInning,
+      teamOneRuns,
+      t1ExtraRuns,
+      teamTwoRuns,
+      t2ExtraRuns,
+      team,
+      outs,
+      inning,
+      baseLoading,
+      balls,
+      strikes,
+    } = data;
+
+    document.getElementById("hometeamlogo").src = hometeamlogo;
+    document.getElementById("awayteamlogo").src = awayteamlogo;
+    document.getElementById("homeTeam").textContent = homeTeam;
+    document.getElementById("awayTeam").textContent = awayTeam;
+    //document.getElementById("extraInning").textContent = extraInning;
+    document.getElementById("teamOneRuns").textContent =
+      teamOneRuns.reduce((acc, val) => acc + val, 0) + extraInning
+        ? t1ExtraRuns.reduce((acc, val) => acc + val, 0)
+        : 0;
+    //document.getElementById("t1ExtraRuns").textContent = t1ExtraRuns;
+    document.getElementById("teamTwoRuns").textContent =
+      teamTwoRuns.reduce((acc, val) => acc + val, 0) + extraInning
+        ? t2ExtraRuns.reduce((acc, val) => acc + val, 0)
+        : 0;
+    //document.getElementById("t2ExtraRuns").textContent = t2ExtraRuns;
+    document.getElementById("caretIcon").innerHTML = team
+      ? "&#9650;"
+      : "&#9660;";
+
+    document.getElementById("out1").style.backgroundColor =
+      outs >= 1 ? "white" : "rgba(255, 255, 255, 0.3)";
+    document.getElementById("out2").style.backgroundColor =
+      outs >= 2 ? "white" : "rgba(255, 255, 255, 0.3)";
+    document.getElementById("out3").style.backgroundColor =
+      outs === 3 ? "white" : "rgba(255, 255, 255, 0.3)";
+
+    document.getElementById("inning").textContent = switchInnings(inning + 1); // following the BaseBallFullGameScreenScoreCard component in the app
+    document.getElementById("base1").textContent = baseLoading[1]
+      ? { backgroundColor: "white" }
+      : null;
+    document.getElementById("base2").textContent = baseLoading[2]
+      ? { backgroundColor: "white" }
+      : null;
+    document.getElementById("base3").textContent = baseLoading[3]
+      ? { backgroundColor: "white" }
+      : null;
+    document.getElementById("balls").textContent = balls;
+    document.getElementById("strikes").textContent = strikes;
   }
 
   disableSpinner();
@@ -183,6 +244,25 @@ socket.on(`game-msg:${matchId}`, (payload) => {
 
   updateScoreboard(payload);
 });
+
+function switchInnings(inningNumber) {
+  switch (inningNumber) {
+    case 1:
+      return "1st";
+      break;
+    case 2:
+      return "2nd";
+      break;
+    case 3:
+      return "3rd";
+      break;
+    case "X":
+      return "Extra";
+    default:
+      return "1st";
+      break;
+  }
+}
 
 const findIcon = (item) => {
   switch (item) {
