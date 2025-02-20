@@ -192,8 +192,17 @@ function updateScoreboard({ currentTime, gameType, payload }) {
     console.log("updating soccer data", payload);
 
     console.log(
+      "new",
       teamOneRuns.reduce((acc, val) => acc + val, 0) +
         (extraInning ? t1ExtraRuns.reduce((acc, val) => acc + val, 0) : 0)
+    );
+
+    console.log(
+      "original",
+      extraInning
+        ? teamOneRuns.reduce((acc, val) => acc + val, 0) +
+            t1ExtraRuns.reduce((acc, val) => acc + val, 0)
+        : teamOneRuns.reduce((acc, val) => acc + val, 0)
     );
 
     document.getElementById("hometeamlogo").src = findIcon(hometeamlogo);
