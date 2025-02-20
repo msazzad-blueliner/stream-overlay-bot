@@ -191,6 +191,12 @@ function updateScoreboard({ currentTime, gameType, payload }) {
 
     console.log("updating soccer data", payload);
 
+    console.log(
+      teamOneRuns.reduce((acc, val) => acc + val, 0) + extraInning
+        ? t1ExtraRuns.reduce((acc, val) => acc + val, 0)
+        : 0
+    );
+
     document.getElementById("hometeamlogo").src = findIcon(hometeamlogo);
     document.getElementById("awayteamlogo").src = findIcon(awayteamlogo);
     document.getElementById("homeTeam").textContent = homeTeam;

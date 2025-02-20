@@ -188,6 +188,7 @@ body {
   width: 100%;
   border-collapse: collapse;
   color: white;
+  background-color: transparent;
 }
 
 .baseball-table td {
