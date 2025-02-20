@@ -171,7 +171,7 @@ function updateScoreboard({ currentTime, gameType, payload }) {
   }
 
   if (gameType === "baseball") {
-    const {
+    /* const {
       awayteamlogo,
       hometeamlogo,
       awayTeam,
@@ -187,15 +187,15 @@ function updateScoreboard({ currentTime, gameType, payload }) {
       baseLoading,
       balls,
       strikes,
-    } = payload;
+    } = payload; */
 
     console.log("updating soccer data", payload);
 
-    document.getElementById("hometeamlogo").src = hometeamlogo;
-    document.getElementById("awayteamlogo").src = awayteamlogo;
-    document.getElementById("homeTeam").textContent = homeTeam;
-    document.getElementById("awayTeam").textContent = awayTeam;
-    document.getElementById("teamOneRuns").textContent =
+    /* document.getElementById("hometeamlogo").src = hometeamlogo;
+    document.getElementById("awayteamlogo").src = awayteamlogo; */
+    document.getElementById("homeTeam").textContent = payload?.homeTeam ?? "";
+    document.getElementById("awayTeam").textContent = payload?.awayTeam ?? "";
+    /* document.getElementById("teamOneRuns").textContent =
       teamOneRuns.reduce((acc, val) => acc + val, 0) + extraInning
         ? t1ExtraRuns.reduce((acc, val) => acc + val, 0)
         : 0;
@@ -228,7 +228,7 @@ function updateScoreboard({ currentTime, gameType, payload }) {
       ? { backgroundColor: "white" }
       : null;
     document.getElementById("balls").textContent = balls;
-    document.getElementById("strikes").textContent = strikes;
+    document.getElementById("strikes").textContent = strikes; */
 
     document.getElementById("baseballBoard").style.display = "block";
     document.getElementById("timer-container").style.display = "none"; // baseball doesn't have timer
