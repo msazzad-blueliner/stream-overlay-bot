@@ -171,7 +171,7 @@ function updateScoreboard({ currentTime, gameType, payload }) {
   }
 
   if (gameType === "baseball") {
-    /* const {
+    const {
       awayteamlogo,
       hometeamlogo,
       awayTeam,
@@ -181,15 +181,13 @@ function updateScoreboard({ currentTime, gameType, payload }) {
       t1ExtraRuns,
       teamTwoRuns,
       t2ExtraRuns,
-      team,
+      /* team,
       outs,
       inning,
       baseLoading,
       balls,
-      strikes,
-    } = payload; */
-
-    const { awayteamlogo, hometeamlogo, awayTeam, homeTeam } = payload;
+      strikes, */
+    } = payload;
 
     console.log("updating soccer data", payload);
 
@@ -197,7 +195,7 @@ function updateScoreboard({ currentTime, gameType, payload }) {
     document.getElementById("awayteamlogo").src = findIcon(awayteamlogo);
     document.getElementById("homeTeam").textContent = homeTeam;
     document.getElementById("awayTeam").textContent = awayTeam;
-    /* document.getElementById("teamOneRuns").textContent =
+    document.getElementById("teamOneRuns").textContent =
       teamOneRuns.reduce((acc, val) => acc + val, 0) + extraInning
         ? t1ExtraRuns.reduce((acc, val) => acc + val, 0)
         : 0;
@@ -205,6 +203,7 @@ function updateScoreboard({ currentTime, gameType, payload }) {
       teamTwoRuns.reduce((acc, val) => acc + val, 0) + extraInning
         ? t2ExtraRuns.reduce((acc, val) => acc + val, 0)
         : 0;
+    /* 
     document.getElementById("caretIcon").innerHTML = team
       ? "&#9650;"
       : "&#9660;";
