@@ -139,7 +139,7 @@ function updateTimer(currentTime) {
 
 function updateScoreboard(data) {
   const { currentTime, gameType } = data;
-  if (typeof currentTime === "number") {
+  if (typeof currentTime === "number" && gameType !== "baseball") { // baseball doesn't have timer
     updateTimer(currentTime);
   }
 
@@ -226,6 +226,7 @@ function updateScoreboard(data) {
     document.getElementById("strikes").textContent = strikes;
 
     document.getElementById("baseballBoard").style.display = "block";
+    document.getElementById("timer-container").style.display = "none"; // baseball doesn't have timer
   }
 
   disableSpinner();
