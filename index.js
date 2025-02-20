@@ -139,7 +139,8 @@ function updateTimer(currentTime) {
 
 function updateScoreboard(data) {
   const { currentTime, gameType } = data;
-  if (typeof currentTime === "number" && gameType !== "baseball") { // baseball doesn't have timer
+  if (typeof currentTime === "number" && gameType !== "baseball") {
+    // baseball doesn't have timer
     updateTimer(currentTime);
   }
 
@@ -154,6 +155,8 @@ function updateScoreboard(data) {
 
   if (gameType === "soccer" || gameType === "hockey") {
     const { payload } = data;
+    console.log("updating soccer data", payload);
+
     document.getElementById("teamName").innerText = payload?.team
       ?.slice(0, 3)
       ?.toUpperCase();
@@ -186,7 +189,9 @@ function updateScoreboard(data) {
       baseLoading,
       balls,
       strikes,
-    } = data;
+    } = data.payload;
+
+    console.log("updating soccer data", payload);
 
     document.getElementById("hometeamlogo").src = hometeamlogo;
     document.getElementById("awayteamlogo").src = awayteamlogo;
