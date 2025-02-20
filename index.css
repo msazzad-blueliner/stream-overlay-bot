@@ -176,3 +176,127 @@ body {
   min-width: 15px;
   text-align: center;
 }
+
+.baseball-board {
+  min-width: 360px;
+  background: rgba(34, 34, 34, 0.9);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.baseball-table {
+  width: 100%;
+  border-collapse: collapse;
+  color: white;
+}
+
+.baseball-table td {
+  padding: 12px 15px;
+  border-bottom: 1px solid gray;
+}
+
+/* Add vertical borders */
+.baseball-table td:nth-child(2),
+.baseball-table td:nth-child(3) {
+  border-left: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.team-cell {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.team-logo {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.team-name {
+  font-size: 18px;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.score-cell {
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
+  width: 60px;
+}
+
+.status-cell {
+  text-align: right;
+}
+
+.status-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+}
+
+.diamonds-cell {
+  display: flex;
+  align-items: center;
+}
+
+.diamond-pyramid {
+  display: flex;
+  flex-direction: column;
+  justify-items: baseline;
+  align-items: center;
+  gap: 3px;
+}
+
+.row {
+  display: flex;
+  justify-content: center;
+  gap: 13px;
+}
+
+.diamond {
+  width: 8px;
+  height: 8px;
+  background: rgba(255, 255, 255, 0.3);
+  transform: rotate(45deg);
+}
+
+.diamond.filled {
+  background: white;
+}
+
+.inning {
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.count {
+  font-size: 14px;
+}
+
+.dots {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  margin-left: 8px;
+}
+
+.dots-row {
+  display: flex;
+  gap: 4px;
+}
+
+/* Adjust spacing for triangle pattern */
+.dots-row:first-child {
+  margin-bottom: 2px;
+}
+
+.dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+}
