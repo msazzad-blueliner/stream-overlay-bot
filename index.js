@@ -207,12 +207,14 @@ function updateScoreboard({ currentTime, gameType, payload }) {
       ? "&#9650;"
       : "&#9660;";
 
+    const notOutIndicatorColor = "rgba(255, 255, 255, 0.3)";
+
     document.getElementById("out1").style.backgroundColor =
-      outs >= 1 ? "white" : "rgba(255, 255, 255, 0.3)";
+      outs >= 1 ? "white" : notOutIndicatorColor;
     document.getElementById("out2").style.backgroundColor =
-      outs >= 2 ? "white" : "rgba(255, 255, 255, 0.3)";
+      outs >= 2 ? "white" : notOutIndicatorColor;
     document.getElementById("out3").style.backgroundColor =
-      outs === 3 ? "white" : "rgba(255, 255, 255, 0.3)";
+      outs === 3 ? "white" : notOutIndicatorColor;
 
     // as per the BaseBallFullGameScreenScoreCard component in the app
     document.getElementById("inning").textContent = switchInnings(inning + 1);
