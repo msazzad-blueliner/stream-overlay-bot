@@ -192,9 +192,8 @@ function updateScoreboard({ currentTime, gameType, payload }) {
     console.log("updating soccer data", payload);
 
     console.log(
-      teamOneRuns.reduce((acc, val) => acc + val, 0) + extraInning
-        ? t1ExtraRuns.reduce((acc, val) => acc + val, 0)
-        : 0
+      teamOneRuns.reduce((acc, val) => acc + val, 0) +
+        (extraInning ? t1ExtraRuns.reduce((acc, val) => acc + val, 0) : 0)
     );
 
     document.getElementById("hometeamlogo").src = findIcon(hometeamlogo);
@@ -202,13 +201,11 @@ function updateScoreboard({ currentTime, gameType, payload }) {
     document.getElementById("homeTeam").textContent = homeTeam;
     document.getElementById("awayTeam").textContent = awayTeam;
     document.getElementById("teamOneRuns").textContent =
-      teamOneRuns.reduce((acc, val) => acc + val, 0) + extraInning
-        ? t1ExtraRuns.reduce((acc, val) => acc + val, 0)
-        : 0;
+      teamOneRuns.reduce((acc, val) => acc + val, 0) +
+      (extraInning ? t1ExtraRuns.reduce((acc, val) => acc + val, 0) : 0);
     document.getElementById("teamTwoRuns").textContent =
-      teamTwoRuns.reduce((acc, val) => acc + val, 0) + extraInning
-        ? t2ExtraRuns.reduce((acc, val) => acc + val, 0)
-        : 0;
+      teamTwoRuns.reduce((acc, val) => acc + val, 0) +
+      (extraInning ? t2ExtraRuns.reduce((acc, val) => acc + val, 0) : 0);
     /* 
     document.getElementById("caretIcon").innerHTML = team
       ? "&#9650;"
