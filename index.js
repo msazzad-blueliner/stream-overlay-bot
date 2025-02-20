@@ -11,7 +11,6 @@ const participantId = urlParams.get("participantId");
 const videoContainer = document.getElementById("videoContainer");
 const textDiv = document.getElementById("textDiv");
 
-const soccerBoard = document.getElementById("soccerBoard");
 const spinner = document.getElementById("spinner");
 
 const minutesElement = document.getElementById("timer-minutes");
@@ -128,7 +127,6 @@ function setMediaTrack(stream, participant, isLocal) {
 }
 
 function disableSpinner() {
-  soccerBoard.style.display = "block";
   spinner.style.display = "none";
 }
 
@@ -167,6 +165,8 @@ function updateScoreboard(data) {
     document.getElementById("teamScore").innerText = payload?.teamScore;
     document.getElementById("againstScore").innerText = payload?.againstScore;
     document.getElementById("gameStatus").innerText = payload?.status;
+
+    document.getElementById("soccerBoard").style.display = "block";
   }
 
   if (gameType === "baseball") {
@@ -192,17 +192,14 @@ function updateScoreboard(data) {
     document.getElementById("awayteamlogo").src = awayteamlogo;
     document.getElementById("homeTeam").textContent = homeTeam;
     document.getElementById("awayTeam").textContent = awayTeam;
-    //document.getElementById("extraInning").textContent = extraInning;
     document.getElementById("teamOneRuns").textContent =
       teamOneRuns.reduce((acc, val) => acc + val, 0) + extraInning
         ? t1ExtraRuns.reduce((acc, val) => acc + val, 0)
         : 0;
-    //document.getElementById("t1ExtraRuns").textContent = t1ExtraRuns;
     document.getElementById("teamTwoRuns").textContent =
       teamTwoRuns.reduce((acc, val) => acc + val, 0) + extraInning
         ? t2ExtraRuns.reduce((acc, val) => acc + val, 0)
         : 0;
-    //document.getElementById("t2ExtraRuns").textContent = t2ExtraRuns;
     document.getElementById("caretIcon").innerHTML = team
       ? "&#9650;"
       : "&#9660;";
@@ -214,7 +211,8 @@ function updateScoreboard(data) {
     document.getElementById("out3").style.backgroundColor =
       outs === 3 ? "white" : "rgba(255, 255, 255, 0.3)";
 
-    document.getElementById("inning").textContent = switchInnings(inning + 1); // following the BaseBallFullGameScreenScoreCard component in the app
+    // as per the BaseBallFullGameScreenScoreCard component in the app
+    document.getElementById("inning").textContent = switchInnings(inning + 1);
     document.getElementById("base1").textContent = baseLoading[1]
       ? { backgroundColor: "white" }
       : null;
@@ -226,6 +224,8 @@ function updateScoreboard(data) {
       : null;
     document.getElementById("balls").textContent = balls;
     document.getElementById("strikes").textContent = strikes;
+
+    document.getElementById("baseballBoard").style.display = "block";
   }
 
   disableSpinner();
