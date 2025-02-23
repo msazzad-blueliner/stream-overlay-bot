@@ -231,7 +231,7 @@ function updateScoreboard({ currentTime, gameType, payload }) {
       changeBaseLoading[2] === 1 ? activeBaseStyle : "";
 
     document.getElementById("base3").style.cssText =
-      changeBaseLoading[3] === 1 ? activeBaseStyle : "";
+      changeBaseLoading[0] === 1 ? activeBaseStyle : "";
 
     console.log(changeBaseLoading);
 
