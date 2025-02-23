@@ -181,7 +181,8 @@ function updateScoreboard({ currentTime, gameType, payload }) {
       t1ExtraRuns,
       teamTwoRuns,
       t2ExtraRuns,
-      /* team,
+      team: isTeamOneBatting,
+      /* 
       outs,
       inning,
       baseLoading,
@@ -191,34 +192,27 @@ function updateScoreboard({ currentTime, gameType, payload }) {
 
     console.log("updating soccer data", payload);
 
-    console.log(
-      "new",
-      teamOneRuns.reduce((acc, val) => acc + val, 0) +
-        (extraInning ? t1ExtraRuns.reduce((acc, val) => acc + val, 0) : 0)
+    document.getElementById("teamOneLogo").src = findIcon(
+      isTeamOneBatting ? hometeamlogo : awayteamlogo
     );
-
-    console.log(
-      "original",
-      extraInning
-        ? teamOneRuns.reduce((acc, val) => acc + val, 0) +
-            t1ExtraRuns.reduce((acc, val) => acc + val, 0)
-        : teamOneRuns.reduce((acc, val) => acc + val, 0)
-    );
-
-    document.getElementById("hometeamlogo").src = findIcon(hometeamlogo);
-    document.getElementById("awayteamlogo").src = findIcon(awayteamlogo);
-    document.getElementById("homeTeam").textContent = homeTeam;
-    document.getElementById("awayTeam").textContent = awayTeam;
+    document.getElementById("teamTwoLogo").src = findIcon(isTeamOneBatting? awayteamlogo:   );
+    document.getElementById("teamOne").textContent = isTeamOneBatting
+      ? homeTeam
+      : awayTeam;
+    document.getElementById("teamTwo").textContent = isTeamOneBatting
+      ? awayTeam
+      : homeTeam;
     document.getElementById("teamOneRuns").textContent =
       teamOneRuns.reduce((acc, val) => acc + val, 0) +
       (extraInning ? t1ExtraRuns.reduce((acc, val) => acc + val, 0) : 0);
     document.getElementById("teamTwoRuns").textContent =
       teamTwoRuns.reduce((acc, val) => acc + val, 0) +
       (extraInning ? t2ExtraRuns.reduce((acc, val) => acc + val, 0) : 0);
-    /* 
-    document.getElementById("caretIcon").innerHTML = team
+    document.getElementById("caretIcon").innerHTML = isTeamOneBatting
       ? "&#9650;"
       : "&#9660;";
+    /* 
+    
 
     const notOutIndicatorColor = "rgba(255, 255, 255, 0.3)";
 
