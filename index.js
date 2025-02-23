@@ -195,7 +195,9 @@ function updateScoreboard({ currentTime, gameType, payload }) {
     document.getElementById("teamOneLogo").src = findIcon(
       isTeamOneBatting ? hometeamlogo : awayteamlogo
     );
-    document.getElementById("teamTwoLogo").src = findIcon(isTeamOneBatting? awayteamlogo:   );
+    document.getElementById("teamTwoLogo").src = findIcon(
+      isTeamOneBatting ? awayteamlogo : hometeamlogo
+    );
     document.getElementById("teamOne").textContent = isTeamOneBatting
       ? homeTeam
       : awayTeam;
