@@ -182,12 +182,11 @@ function updateScoreboard({ currentTime, gameType, payload }) {
       teamTwoRuns,
       t2ExtraRuns,
       team: isTeamOneBatting,
-      /* 
       outs,
       inning,
       baseLoading,
       balls,
-      strikes, */
+      strikes,
     } = payload;
 
     console.log("updating soccer data", payload);
@@ -206,17 +205,15 @@ function updateScoreboard({ currentTime, gameType, payload }) {
     document.getElementById("caretIcon").innerHTML = isTeamOneBatting
       ? "&#9650;"
       : "&#9660;";
-    /* 
-    
 
     const notOutIndicatorColor = "rgba(255, 255, 255, 0.3)";
 
     document.getElementById("out1").style.backgroundColor =
-      outs >= 1 ? "white" : notOutIndicatorColor;
+      outs >= "1" ? "white" : notOutIndicatorColor;
     document.getElementById("out2").style.backgroundColor =
-      outs >= 2 ? "white" : notOutIndicatorColor;
+      outs >= "2" ? "white" : notOutIndicatorColor;
     document.getElementById("out3").style.backgroundColor =
-      outs === 3 ? "white" : notOutIndicatorColor;
+      outs === "3" ? "white" : notOutIndicatorColor;
 
     // as per the BaseBallFullGameScreenScoreCard component in the app
     document.getElementById("inning").textContent = switchInnings(inning + 1);
@@ -230,7 +227,7 @@ function updateScoreboard({ currentTime, gameType, payload }) {
       ? { backgroundColor: "white" }
       : null;
     document.getElementById("balls").textContent = balls;
-    document.getElementById("strikes").textContent = strikes; */
+    document.getElementById("strikes").textContent = strikes;
 
     document.getElementById("baseballBoard").style.display = "block";
     document.getElementById("timer-container").style.display = "none"; // baseball doesn't have timer
