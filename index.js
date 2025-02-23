@@ -184,7 +184,7 @@ function updateScoreboard({ currentTime, gameType, payload }) {
       team: isTeamOneBatting,
       outs,
       inning,
-      baseLoading,
+      changeBaseLoading,
       balls,
       strikes,
     } = payload;
@@ -220,15 +220,15 @@ function updateScoreboard({ currentTime, gameType, payload }) {
 
     const activeBaseStyle = "border: 0.5px solid white;";
 
-    document.getElementById("base1").style.cssText = baseLoading[1]
+    document.getElementById("base1").style.cssText = changeBaseLoading[1]
       ? activeBaseStyle
       : "";
 
-    document.getElementById("base2").style.cssText = baseLoading[2]
+    document.getElementById("base2").style.cssText = changeBaseLoading[2]
       ? activeBaseStyle
       : "";
 
-    document.getElementById("base3").style.cssText = baseLoading[3]
+    document.getElementById("base3").style.cssText = changeBaseLoading[3]
       ? activeBaseStyle
       : "";
 
