@@ -208,8 +208,6 @@ function updateScoreboard({ currentTime, gameType, payload }) {
 
     const notOutIndicatorColor = "rgba(255, 255, 255, 0.3)";
 
-    console.log(typeof outs);
-
     document.getElementById("out1").style.backgroundColor =
       outs >= 1 ? "white" : notOutIndicatorColor;
     document.getElementById("out2").style.backgroundColor =
@@ -219,15 +217,21 @@ function updateScoreboard({ currentTime, gameType, payload }) {
 
     // as per the BaseBallFullGameScreenScoreCard component in the app
     document.getElementById("inning").textContent = switchInnings(inning + 1);
-    document.getElementById("base1").textContent = baseLoading[1]
-      ? { backgroundColor: "white" }
-      : null;
-    document.getElementById("base2").textContent = baseLoading[2]
-      ? { backgroundColor: "white" }
-      : null;
-    document.getElementById("base3").textContent = baseLoading[3]
-      ? { backgroundColor: "white" }
-      : null;
+
+    const activeBaseStyle = "border: 0.5px solid white;";
+
+    document.getElementById("base1").style.cssText = baseLoading[1]
+      ? activeBaseStyle
+      : "";
+
+    document.getElementById("base2").style.cssText = baseLoading[2]
+      ? activeBaseStyle
+      : "";
+
+    document.getElementById("base3").style.cssText = baseLoading[3]
+      ? activeBaseStyle
+      : "";
+
     document.getElementById("balls").textContent = balls;
     document.getElementById("strikes").textContent = strikes;
 
