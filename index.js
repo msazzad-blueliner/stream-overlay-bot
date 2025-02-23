@@ -211,11 +211,11 @@ function updateScoreboard({ currentTime, gameType, payload }) {
     console.log(typeof outs);
 
     document.getElementById("out1").style.backgroundColor =
-      outs >= "1" ? "white" : notOutIndicatorColor;
+      outs >= 1 ? "white" : notOutIndicatorColor;
     document.getElementById("out2").style.backgroundColor =
-      outs >= "2" ? "white" : notOutIndicatorColor;
+      outs >= 2 ? "white" : notOutIndicatorColor;
     document.getElementById("out3").style.backgroundColor =
-      outs === "3" ? "white" : notOutIndicatorColor;
+      outs >= 3 ? "white" : notOutIndicatorColor;
 
     // as per the BaseBallFullGameScreenScoreCard component in the app
     document.getElementById("inning").textContent = switchInnings(inning + 1);
