@@ -224,17 +224,16 @@ function updateScoreboard({ currentTime, gameType, payload }) {
 
     const activeBaseStyle = "border: 0.5px solid white;";
 
-    document.getElementById("base1").style.cssText = changeBaseLoading[1]
-      ? activeBaseStyle
-      : "";
+    document.getElementById("base1").style.cssText =
+      changeBaseLoading[1] === 1 ? activeBaseStyle : "";
 
-    document.getElementById("base2").style.cssText = changeBaseLoading[2]
-      ? activeBaseStyle
-      : "";
+    document.getElementById("base2").style.cssText =
+      changeBaseLoading[2] === 1 ? activeBaseStyle : "";
 
-    document.getElementById("base3").style.cssText = changeBaseLoading[3]
-      ? activeBaseStyle
-      : "";
+    document.getElementById("base3").style.cssText =
+      changeBaseLoading[3] === 1 ? activeBaseStyle : "";
+
+    console.log(changeBaseLoading);
 
     document.getElementById("balls").textContent = balls;
     document.getElementById("strikes").textContent = strikes;
