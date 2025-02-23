@@ -208,6 +208,8 @@ function updateScoreboard({ currentTime, gameType, payload }) {
 
     const notOutIndicatorColor = "rgba(255, 255, 255, 0.3)";
 
+    console.log(typeof outs);
+
     document.getElementById("out1").style.backgroundColor =
       outs >= "1" ? "white" : notOutIndicatorColor;
     document.getElementById("out2").style.backgroundColor =
