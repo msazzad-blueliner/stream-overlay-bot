@@ -191,6 +191,7 @@ function updateScoreboard({ currentTime, gameType, payload }) {
     } = payload;
 
     console.log("updating soccer data", payload);
+    console.log("is team one batting", isTeamOneBatting);
 
     document.getElementById("teamOneLogo").src = findIcon(
       isTeamOneBatting ? hometeamlogo : awayteamlogo
