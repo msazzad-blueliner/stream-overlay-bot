@@ -193,8 +193,12 @@ function updateScoreboard({ currentTime, gameType, payload }) {
 
     document.getElementById("teamOneLogo").src = findIcon(hometeamlogo);
     document.getElementById("teamTwoLogo").src = findIcon(awayteamlogo);
-    document.getElementById("teamOne").textContent = homeTeam;
-    document.getElementById("teamTwo").textContent = awayTeam;
+    document.getElementById("teamOne").textContent = homeTeam
+      ?.slice(0, 3)
+      ?.toUpperCase();
+    document.getElementById("teamTwo").textContent = awayTeam
+      ?.slice(0, 3)
+      ?.toUpperCase();
 
     document.getElementById("teamOneRuns").textContent =
       teamOneRuns.reduce((acc, val) => acc + val, 0) +
