@@ -185,8 +185,8 @@ function updateScoreboard({ currentTime, gameType, payload }) {
       outs,
       inning,
       changeBaseLoading,
-      balls,
-      strikes,
+      ball,
+      strike,
     } = payload;
 
     console.log("updating soccer data", payload);
@@ -235,8 +235,8 @@ function updateScoreboard({ currentTime, gameType, payload }) {
 
     console.log(changeBaseLoading);
 
-    document.getElementById("balls").textContent = balls;
-    document.getElementById("strikes").textContent = strikes;
+    document.getElementById("balls").textContent = ball;
+    document.getElementById("strikes").textContent = strike;
 
     document.getElementById("baseballBoard").style.display = "block";
     document.getElementById("timer-container").style.display = "none"; // baseball doesn't have timer
