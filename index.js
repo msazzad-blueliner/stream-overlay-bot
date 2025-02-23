@@ -191,20 +191,12 @@ function updateScoreboard({ currentTime, gameType, payload }) {
     } = payload;
 
     console.log("updating soccer data", payload);
-    console.log("is team one batting", isTeamOneBatting);
 
-    document.getElementById("teamOneLogo").src = findIcon(
-      isTeamOneBatting ? hometeamlogo : awayteamlogo
-    );
-    document.getElementById("teamTwoLogo").src = findIcon(
-      isTeamOneBatting ? awayteamlogo : hometeamlogo
-    );
-    document.getElementById("teamOne").textContent = isTeamOneBatting
-      ? homeTeam
-      : awayTeam;
-    document.getElementById("teamTwo").textContent = isTeamOneBatting
-      ? awayTeam
-      : homeTeam;
+    document.getElementById("teamOneLogo").src = findIcon(hometeamlogo);
+    document.getElementById("teamTwoLogo").src = findIcon(awayteamlogo);
+    document.getElementById("teamOne").textContent = homeTeam;
+    document.getElementById("teamTwo").textContent = awayTeam;
+
     document.getElementById("teamOneRuns").textContent =
       teamOneRuns.reduce((acc, val) => acc + val, 0) +
       (extraInning ? t1ExtraRuns.reduce((acc, val) => acc + val, 0) : 0);
