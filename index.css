@@ -208,6 +208,7 @@ body {
   padding-right: 5px;
   align-items: center;
   gap: 12px;
+  background-color: transparent;
 }
 
 .team-logo {
@@ -228,10 +229,12 @@ body {
   font-weight: bold;
   text-align: center;
   width: 60px;
+  background-color: transparent;
 }
 
 .status-cell {
   text-align: right;
+  background-color: transparent;
 }
 
 .status-content {
@@ -244,6 +247,7 @@ body {
 .diamonds-cell {
   display: flex;
   align-items: center;
+  background-color: transparent;
 }
 
 .diamond-pyramid {
