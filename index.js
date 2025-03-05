@@ -153,7 +153,7 @@ function updateScoreboard({ currentTime, gameType, payload }) {
     return;
 
   if (gameType === "soccer" || gameType === "hockey") {
-    console.log("updating soccer data", payload);
+    /* console.log("updating soccer data", payload); */
 
     document.getElementById("teamName").innerText = payload?.team
       ?.slice(0, 3)
@@ -189,7 +189,7 @@ function updateScoreboard({ currentTime, gameType, payload }) {
       strike,
     } = payload;
 
-    console.log("updating soccer data", payload);
+    console.log("updating baseball data", payload);
 
     document.getElementById("teamOneLogo").src = findIcon(hometeamlogo);
     document.getElementById("teamTwoLogo").src = findIcon(awayteamlogo);
@@ -233,7 +233,7 @@ function updateScoreboard({ currentTime, gameType, payload }) {
     document.getElementById("base3").style.cssText =
       changeBaseLoading[0] === 1 ? activeBaseStyle : "";
 
-    console.log(changeBaseLoading);
+    /* console.log(changeBaseLoading); */
 
     document.getElementById("balls").textContent = ball;
     document.getElementById("strikes").textContent = strike;
@@ -254,7 +254,7 @@ const socket = io(SOCKET_API_URL, {
 });
 
 socket.on(`game-msg:${matchId}`, (payload) => {
-  console.log(payload);
+  /* console.log(payload); */
 
   updateScoreboard(payload);
 });
