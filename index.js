@@ -239,7 +239,6 @@ function updateScoreboard({ currentTime, gameType, payload }) {
     document.getElementById("strikes").textContent = strike;
 
     document.getElementById("baseballBoard").style.display = "block";
-    document.getElementById("timer-container").style.display = "none"; // baseball doesn't have timer
   }
 
   disableSpinner();
