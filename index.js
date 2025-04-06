@@ -132,11 +132,11 @@ function disableSpinner() {
 
 function updateLiveIndicator(isLive) {
   document.getElementById("liveIndicator").style.display = isLive
-    ? "block"
+    ? "flex"
     : "none";
   document.getElementById("notLiveIndicator").style.display = isLive
     ? "none"
-    : "block";
+    : "flex";
 }
 
 function updateTimer(currentTime) {
