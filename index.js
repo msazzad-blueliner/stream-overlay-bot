@@ -1,4 +1,6 @@
 import { io } from "https://cdn.socket.io/4.8.1/socket.io.esm.min.js";
+
+let hasStreamStreamStarted = false;
 const SOCKET_API_URL = "https://bsports-socket-staging.herokuapp.com/";
 const url = window.location;
 const urlParams = new URLSearchParams(url.search);
@@ -131,6 +133,11 @@ function disableSpinner() {
 }
 
 function updateLiveIndicator(isLive) {
+  if (!hasStreamStreamStarted) {
+    hasStreamStreamStarted = isLive;
+    return;
+  }
+
   document.getElementById("liveIndicator").style.display = isLive
     ? "flex"
     : "none";
