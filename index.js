@@ -132,7 +132,9 @@ function disableSpinner() {
   spinner.style.display = "none";
 }
 
-function updateLiveIndicator(isLive) {
+function updateLiveIndicator(isLive = hasStreamStreamStarted) { // assume existing state (live/ not live) when received null
+
+  // prevent displaying not live before the stream starts
   if (!hasStreamStreamStarted) {
     hasStreamStreamStarted = isLive;
 
