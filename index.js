@@ -137,6 +137,10 @@ function updateLiveIndicator(isLive) {
   document.getElementById("notLiveIndicator").style.display = isLive
     ? "none"
     : "flex";
+
+  document.getElementById("streamEndedMessage").style.display = isLive
+    ? "none"
+    : "flex";
 }
 
 function updateTimer(currentTime) {

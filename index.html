@@ -12,15 +12,13 @@
 
     <div id="videoContainer">
       <!-- Live Indicator -->
-      <div id="liveIndicator" class="live-indicator">
+      <div id="liveIndicator" class="live-indicator" style="display: none">
         <span
           id="indicatorDot"
           class="indicator-dot"
           style="background-color: green"
         ></span>
-        <span id="indicatorText" class="indicator-text" style="display: none"
-          >Live</span
-        >
+        <span id="indicatorText" class="indicator-text">Live</span>
       </div>
 
       <div id="notLiveIndicator" class="live-indicator" style="display: none">
@@ -164,6 +162,13 @@
             <div class="spinner"></div>
           </div>
         </div>
+      </div>
+    </div>
+
+    <div id="streamEndedMessage" class="centered-message" style="display: none">
+      <div class="message-box">
+        <p>You have reached the end of the stream.</p>
+        <p>You can watch other streams or highlights.</p>
       </div>
     </div>
 

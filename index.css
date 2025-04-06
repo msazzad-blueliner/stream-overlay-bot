@@ -337,3 +337,22 @@ body {
 .indicator-text {
   font-size: 18px;
 }
+
+.centered-message {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.6); /* semi-transparent black */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  text-align: center;
+  pointer-events: none; /* so it doesn't block clicks if needed */
+}
+
+.message-box {
+  color: white;
+  font-weight: bold;
+  font-size: 1.25rem;
+  text-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+}
