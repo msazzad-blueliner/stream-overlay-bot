@@ -130,6 +130,20 @@ function disableSpinner() {
   spinner.style.display = "none";
 }
 
+function updateLiveIndicator(isLive) {
+  const indicator = document.getElementById("liveIndicator");
+  const dot = indicator.querySelector(".indicator-dot");
+  const text = indicator.querySelector(".indicator-text");
+
+  if (isLive) {
+    dot.style.backgroundColor = "green";
+    text.textContent = "Live";
+  } else {
+    dot.style.backgroundColor = "red";
+    text.textContent = "Stream Ended";
+  }
+}
+
 function updateTimer(currentTime) {
   const minutes = Math.floor(currentTime / 60);
   const seconds = Math.floor(currentTime % 60);
@@ -252,10 +266,9 @@ const socket = io(SOCKET_API_URL, {
   transports: ["websocket", "polling"],
 });
 
-socket.on(`game-msg:${matchId}`, (payload) => {
-  /* console.log(payload); */
-
-  updateScoreboard(payload);
+socket.on(`game-msg:${matchId}`, (data) => {
+  updateLiveIndicator(data.isLive);
+  updateScoreboard(data);
 });
 
 function switchInnings(inningNumber) {

@@ -169,6 +169,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+  gap: 2px;
 }
 
 .timer-text span {
@@ -311,4 +312,28 @@ body {
 .caret-icon {
   color: red;
   font-size: 18px;
+}
+
+.live-indicator {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  z-index: 2000;
+  font-weight: bold;
+  color: white;
+  /* Default state – you can update this class or its children via JavaScript */
+}
+
+.indicator-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: green; /* Change to red when stream has ended */
+}
+
+.indicator-text {
+  font-size: 16px;
 }
