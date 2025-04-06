@@ -135,7 +135,8 @@ function disableSpinner() {
 function updateLiveIndicator(isLive) {
   if (!hasStreamStreamStarted) {
     hasStreamStreamStarted = isLive;
-    return;
+
+    if (!isLive) return;
   }
 
   document.getElementById("liveIndicator").style.display = isLive
