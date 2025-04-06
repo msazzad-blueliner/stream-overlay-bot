@@ -131,16 +131,12 @@ function disableSpinner() {
 }
 
 function updateLiveIndicator(isLive) {
-  const dot = document.getElementById("indicatorDot");
-  const text = document.getElementById("indicatorText");
-
-  if (isLive) {
-    dot.style.backgroundColor = "green";
-    text.textContent = "Live";
-  } else {
-    dot.style.backgroundColor = "red";
-    text.textContent = "Stream Ended";
-  }
+  document.getElementById("liveIndicator").style.display = isLive
+    ? "block"
+    : "none";
+  document.getElementById("notLiveIndicator").style.display = isLive
+    ? "none"
+    : "block";
 }
 
 function updateTimer(currentTime) {

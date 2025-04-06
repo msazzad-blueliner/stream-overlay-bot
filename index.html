@@ -1,125 +1,171 @@
 <!DOCTYPE html>
 <html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Live Stream with Scorecard</title>
+    <link rel="stylesheet" href="index.css" />
+  </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Live Stream with Scorecard</title>
-  <link rel="stylesheet" href="index.css" />
-</head>
+  <body>
+    <div id="textDiv">Starting live stream...</div>
 
-<body>
-  <div id="textDiv">Starting live stream...</div>
+    <div id="videoContainer">
+      <!-- Live Indicator -->
+      <div id="liveIndicator" class="live-indicator">
+        <span
+          id="indicatorDot"
+          class="indicator-dot"
+          style="background-color: green"
+        ></span>
+        <span id="indicatorText" class="indicator-text">Live</span>
+      </div>
 
-  <div id="videoContainer">
-    <!-- Live Indicator -->
-    <div id="liveIndicator" class="live-indicator">
-      <span id="indicatorDot" class="indicator-dot"></span>
-      <span id="indicatorText" class="indicator-text">Live</span>
-    </div>
+      <div id="notLiveIndicator" class="live-indicator">
+        <span
+          id="indicatorDot"
+          class="indicator-dot"
+          style="background-color: red"
+        ></span>
+        <span id="indicatorText" class="indicator-text">Stream Ended</span>
+      </div>
 
-    <div class="overlay">
-      <div class="scorecard">
-        <div class="sponsor">
-          <img src="./assets/basmentsportsStreamingCardLogo.png" alt="Basement Sports" />
-          <img src="./assets/kidcoinStreamCardLogo.png" alt="Kidcoin" />
-        </div>
+      <div class="overlay">
+        <div class="scorecard">
+          <div class="sponsor">
+            <img
+              src="./assets/basmentsportsStreamingCardLogo.png"
+              alt="Basement Sports"
+            />
+            <img src="./assets/kidcoinStreamCardLogo.png" alt="Kidcoin" />
+          </div>
 
-        <div class="divider"></div>
+          <div class="divider"></div>
 
-        <div id="soccerBoard" style="display: none">
-          <div class="teams-container">
-            <div class="team">
-              <img id="teamLogo" src="./assets/Brazil.png" alt="Team" class="team-logo" />
-              <span id="teamName">BRA</span>
+          <div id="soccerBoard" style="display: none">
+            <div class="teams-container">
+              <div class="team">
+                <img
+                  id="teamLogo"
+                  src="./assets/Brazil.png"
+                  alt="Team"
+                  class="team-logo"
+                />
+                <span id="teamName">BRA</span>
+              </div>
+              <div class="score">
+                <span id="teamScore">0</span>
+                <span>-</span>
+                <span id="againstScore">0</span>
+              </div>
+              <div class="team">
+                <span id="againstName">AUS</span>
+                <img
+                  id="againstLogo"
+                  src="./assets/Australia.png"
+                  alt="Against Team"
+                  class="team-logo"
+                />
+              </div>
             </div>
-            <div class="score">
-              <span id="teamScore">0</span>
-              <span>-</span>
-              <span id="againstScore">0</span>
-            </div>
-            <div class="team">
-              <span id="againstName">AUS</span>
-              <img id="againstLogo" src="./assets/Australia.png" alt="Against Team" class="team-logo" />
+            <div class="timer-status">
+              <span class="half" id="gameStatus"> 1st Half </span>
+              <span>&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;</span>
+              <span id="timer-container" class="timer-text">
+                <span id="timer-minutes">0</span>
+                <span>:</span>
+                <span id="timer-seconds">00</span>
+              </span>
             </div>
           </div>
-          <div class="timer-status">
-            <span class="half" id="gameStatus"> 1st Half </span>
-            <span>&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;</span>
-            <span id="timer-container" class="timer-text">
-              <span id="timer-minutes">0</span>
-              <span>:</span>
-              <span id="timer-seconds">00</span>
-            </span>
+          <div id="baseballBoard" style="display: none" class="baseball-board">
+            <table class="baseball-table">
+              <tr>
+                <td>
+                  <div class="team-cell">
+                    <img
+                      id="teamOneLogo"
+                      src="./assets/Brazil.png"
+                      alt="Bulls"
+                      class="team-logo"
+                    />
+                    <span id="teamOne" class="team-name">BUL</span>
+                  </div>
+                </td>
+                <td class="score-cell">
+                  <span id="teamOneRuns">0</span>
+                </td>
+                <td class="status-cell">
+                  <div class="status-content" style="padding-left: 5px">
+                    <div class="diamond-pyramid">
+                      <div class="row">
+                        <div
+                          id="base1"
+                          class="diamond"
+                          style="margin-left: 2px"
+                        ></div>
+                      </div>
+                      <div class="row">
+                        <div id="base2" class="diamond"></div>
+                        <div id="base3" class="diamond"></div>
+                      </div>
+                    </div>
+                    <span
+                      id="inning"
+                      class="inning"
+                      style="font-weight: bolder; font-size: large"
+                      >1st</span
+                    >
+                    <span>
+                      <span id="caretIcon" class="caret-icon">&#9650;</span>
+                    </span>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="team-cell">
+                    <img
+                      id="teamTwoLogo"
+                      src="./assets/Australia.png"
+                      alt="Bulldogs"
+                      class="team-logo"
+                    />
+                    <span id="teamTwo" class="team-name">COL</span>
+                  </div>
+                </td>
+                <td class="score-cell">
+                  <span id="teamTwoRuns">0</span>
+                </td>
+                <td class="status-cell">
+                  <div class="status-content">
+                    <span
+                      class="count"
+                      style="font-weight: bolder; font-size: large"
+                    >
+                      <span id="balls">0</span>-<span id="strikes">0</span>
+                    </span>
+                    <div class="dots">
+                      <div class="dots-row">
+                        <div id="out1" class="dot"></div>
+                        <div id="out2" class="dot"></div>
+                        <div id="out3" class="dot"></div>
+                      </div>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+            </table>
           </div>
-        </div>
-        <div id="baseballBoard" style="display: none" class="baseball-board">
-          <table class="baseball-table">
-            <tr>
-              <td>
-                <div class="team-cell">
-                  <img id="teamOneLogo" src="./assets/Brazil.png" alt="Bulls" class="team-logo" />
-                  <span id="teamOne" class="team-name">BUL</span>
-                </div>
-              </td>
-              <td class="score-cell">
-                <span id="teamOneRuns">0</span>
-              </td>
-              <td class="status-cell">
-                <div class="status-content" style="padding-left: 5px">
-                  <div class="diamond-pyramid">
-                    <div class="row">
-                      <div id="base1" class="diamond" style="margin-left: 2px"></div>
-                    </div>
-                    <div class="row">
-                      <div id="base2" class="diamond"></div>
-                      <div id="base3" class="diamond"></div>
-                    </div>
-                  </div>
-                  <span id="inning" class="inning" style="font-weight: bolder; font-size: large">1st</span>
-                  <span>
-                    <span id="caretIcon" class="caret-icon">&#9650;</span>
-                  </span>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <div class="team-cell">
-                  <img id="teamTwoLogo" src="./assets/Australia.png" alt="Bulldogs" class="team-logo" />
-                  <span id="teamTwo" class="team-name">COL</span>
-                </div>
-              </td>
-              <td class="score-cell">
-                <span id="teamTwoRuns">0</span>
-              </td>
-              <td class="status-cell">
-                <div class="status-content">
-                  <span class="count" style="font-weight: bolder; font-size: large">
-                    <span id="balls">0</span>-<span id="strikes">0</span>
-                  </span>
-                  <div class="dots">
-                    <div class="dots-row">
-                      <div id="out1" class="dot"></div>
-                      <div id="out2" class="dot"></div>
-                      <div id="out3" class="dot"></div>
-                    </div>
-                  </div>
-                </div>
-              </td>
-            </tr>
-          </table>
-        </div>
 
-        <div id="spinner" class="loading">
-          <div class="spinner"></div>
+          <div id="spinner" class="loading">
+            <div class="spinner"></div>
+          </div>
         </div>
       </div>
     </div>
-  </div>
 
-  <script src="https://sdk.videosdk.live/js-sdk/0.0.63/videosdk.js"></script>
-  <script type="module" src="index.js"></script>
-</body>
-
+    <script src="https://sdk.videosdk.live/js-sdk/0.0.63/videosdk.js"></script>
+    <script type="module" src="index.js"></script>
+  </body>
 </html>
