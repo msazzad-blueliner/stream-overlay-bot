@@ -131,9 +131,8 @@ function disableSpinner() {
 }
 
 function updateLiveIndicator(isLive) {
-  const indicator = document.getElementById("liveIndicator");
-  const dot = indicator.querySelector(".indicator-dot");
-  const text = indicator.querySelector(".indicator-text");
+  const dot = document.getElementById("indicatorDot");
+  const text = document.getElementById("indicatorText");
 
   if (isLive) {
     dot.style.backgroundColor = "green";
